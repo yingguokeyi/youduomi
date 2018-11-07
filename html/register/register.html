@@ -12,14 +12,12 @@
 		<meta name="msapplication-tap-highlight" content="no">
 		<link rel="stylesheet" href="../../assets/css/common.css" />
 		<link rel="stylesheet" href="../../css/register/register.css" />
-		<link rel="stylesheet" href="../../assets/css/swiper.min.css"/>
 		<link rel="stylesheet" href="../../assets/layer_mobile/need/layer.css" />
 		<script type="text/javascript" src="../../assets/js/jquery-1.10.2.min.js"></script>
 		<script type="text/javascript" src="../../assets/layer_mobile/layer.js"></script>
 		<script type="text/javascript" src="../../assets/js/font-size.js"></script>
 		<script type="text/javascript" src="../../assets/js/global_variable.js"></script>
-		<script type="text/javascript" src="../../assets/js/swiper.min.js"></script>
-		<title>个人中心</title>
+		<title>会员注册</title>
 	</head>
 	<body style="background:#fff;">
 		<div class="main">
@@ -33,7 +31,7 @@
 							<span>真实姓名:</span>
 						</li>
 						<li class="name_li name_input">
-							<input type="text" placeholder="真实姓名" id="uname"/>
+							<input type="text" placeholder="真实姓名" id="uname" onkeyup="this.value = this.value.substring(0,4)" />
 						</li>
 					</ul>
 					<ul class="main_infor_name">
@@ -62,7 +60,7 @@
 							<span>推荐人:</span>
 						</li>
 						<li class="name_li name_input">
-							<input type="text" placeholder="请输入推荐人" />
+							<input type="text" placeholder="请输入推荐人" id="invite_code"/>
 						</li>
 						
 					</ul>
@@ -75,7 +73,7 @@
 				</div>
 				<div class="register_cond">
 					<p>
-						<img src="../../image/mine/registernoc.png" />
+						<img src="../../image/mine/registernoc.png" id="test1" />
 						注册即同意<span style="color:#fd4848;">《用户注册协议》</span>
 					</p>
 				</div>

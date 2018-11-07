@@ -92,7 +92,7 @@
 .name_input input.btn_yanzhengma{
 	color: #fff;
     position: absolute;
-    top: 0;
+    top: .05rem;
     right: 0.24rem;
     height: 0.54rem;
     line-height: 0.54rem;

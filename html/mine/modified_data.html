@@ -44,16 +44,22 @@
 					</li>
 					<li class="bot_li">
 						<label>所在省份:</label>
-						<input type="text" value="山东省" />
+						<!-- <select id="s_province" name="s_province"></select> -->
+						<input type="text" value="山东省" id="s_province" name="s_province" />
 					</li>
+					
 					<li class="bot_li">
 						<label>城&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;市:</label>
-						<input type="text" value="泰安市" />
+						<input type="text" value="泰安市" id="s_city" name="s_city" />
+						<!-- <select id="s_city" name="s_city" ></select> -->
 					</li>
 					<li class="bot_li">
 						<label>区&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;域:</label>
-						<input type="text" value="泰安市" />
+						<input type="text" value="泰安市" id="s_county" name="s_county" />
+						<!-- <select id="s_county" name="s_county"></select> -->
 					</li>
+					<script type="text/javascript" src="../../assets/js/area.js"></script>
+					<script type="text/javascript">_init_area();</script>
 					<li style="height:1.56rem;">
 						<label style="vertical-align: top;line-height: 1.56rem;">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址:</label>
 						<textarea style="margin-top:.2rem;height:80%;">翟镇镇刘官庄村新村路88号</textarea>
