@@ -34,7 +34,7 @@
 /* 上传小票图片 */
 .pictures{
 	width: 100%;
-	height: 100%;
+	height: 1.8rem;
     margin-top: 0.66rem;
 }
 .upload_pictures {
@@ -111,7 +111,7 @@
 /* 补贴规则 */
 .rule{
 	width: 100%;
-	height: 100%;
+	height: 2.7rem;
 	margin-top: 0.4rem;
 }
 .t_rule{
@@ -134,7 +134,7 @@
 	line-height: 0.4rem;
 	font-size: 0.24rem;
 	color: #666666;
-	margin-left: 0.26rem;
+	padding-left: 0.26rem;
 }
 
 /*弹框*/
