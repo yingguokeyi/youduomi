@@ -18,6 +18,16 @@
     color: #59d749;
     margin-bottom: .28rem;
 }
+.yellow{
+    font-size: .3rem;
+    color: #fd9f4b;
+    margin-bottom: .28rem;
+}
+.red{
+     font-size: .3rem;
+     color: #fd4848;
+     margin-bottom: .28rem;
+}
 /* 分割线 */
 .kong{
     width: 100%;
