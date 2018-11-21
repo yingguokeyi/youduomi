@@ -1,14 +1,14 @@
 
 $(function(){
     // 判断是否填写小票号
-    $("#le").blur(function() {
-        var name = document.getElementById("le").value;
-        if(name !=''){
-            $('.push_button').css({display: 'block'});
-        }else {
-            $('.push_button').css({display: 'none'});
-        }
-    });
+    // $("#le").blur(function() {
+    //     var name = document.getElementById("le").value;
+    //     if(name !=''){
+    //         $('.push_button').css({display: 'block'});
+    //     }else {
+    //         $('.push_button').css({display: 'none'});
+    //     }
+    // });
 
 
 
@@ -33,22 +33,22 @@ $(document).on("click", ".warm_login", function(){
 
 
  // 图片不清晰出现弹框 ----上传
- $(".below").click(function() {
-    layer.open({
-        type: 1,
-        content: $('.warmm').html(),
-        anim: 'below',
-        scrollbar: false,
-        shadeClose: false,
-        style: 'position:fixed;bottom:50%;left: 8%; right:8%;height: auto;border:none;border-radius:6px'
+//  $(".below").click(function() {
+//     layer.open({
+//         type: 1,
+//         content: $('.warmm').html(),
+//         anim: 'below',
+//         scrollbar: false,
+//         shadeClose: false,
+//         style: 'position:fixed;bottom:50%;left: 8%; right:8%;height: auto;border:none;border-radius:6px'
         
-    });
+//     });
     
-})
+// })
 //点击确定退出登录
-$(document).on("click", ".warm_logins", function(){
-    layer.closeAll('page');
-    });
+// $(document).on("click", ".warm_logins", function(){
+//     layer.closeAll('page');
+//     });
 
  
 
