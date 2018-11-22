@@ -12,7 +12,7 @@ $(function(){
 			});
 			return false;
 		}
-		if(sumVal>=5 && sumVal%5==0){
+		if(sumVal<5 && sumVal%5!=0){
 			layer.open({
 				content: '输入金额有误！',
 				skin: 'msg',
