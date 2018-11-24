@@ -84,8 +84,49 @@ img{
     text-align: center;
     position: relative;
 }
+.synthesize{
+	width: 0.24rem;
+    height: 0.26rem;
+}
+/* 未选中的升序背景图 */
 .synthesize_img{
     width: 0.24rem;
+	height: 0.36rem;
+	background: url(../../image/receipt/unselected2.png);
+	background-repeat:no-repeat;
+	background-size:0.15rem 0.36rem;
+	margin-top: 0.23rem;
+}
+/* 选中降序的背景图 */
+.synthesizes_img{
+    width: 0.24rem;
+	height: 0.36rem;
+	background: url(../../image/receipt/pitchOn1.png);
+	background-repeat:no-repeat;
+	background-size:0.15rem 0.36rem;
+	margin-top: 0.23rem;
+}
+/* 选中升序的背景 */
+.selected_img{
+	width: 0.24rem;
+	height: 0.36rem;
+	background: url(../../image/receipt/pitchOn2.png);
+	background-repeat:no-repeat;
+	background-size:0.15rem 0.36rem;
+	margin-top: 0.23rem;
+}
+/* 未选中的降序背景图 */
+.unchecked_img{
+	width: 0.24rem;
+	height: 0.36rem;
+	background: url(../../image/receipt/unselected1.png);
+	background-repeat:no-repeat;
+	background-size:0.15rem 0.36rem;
+	margin-top: 0.23rem;
+}
+
+.bottom-arrow-selected{
+	width: 0.24rem;
     height: 0.26rem;
 }
 .sales{
@@ -102,7 +143,7 @@ img{
     width: 0.78rem;
     height: 0.38rem;
     border: 0.02rem solid #666666;
-    border-radius:38.4%;
+    border-radius:.3rem;
     left: 0.85rem;
     top: 0.2rem;
 }
