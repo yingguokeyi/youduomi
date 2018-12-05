@@ -24,6 +24,7 @@ $(function(){
                 url_type:'receipts'
             },
             success: function(data) {
+               console.log(data)
                 var depositsHistory =data.result.rs;
                 var pastRecordsId = jsel.match('.id', depositsHistory);//获得id
                 var pastRecordsSumo =jsel.match('.profit', depositsHistory);//获得奖励钱数
@@ -41,13 +42,13 @@ $(function(){
                              redundantHtml += '<p class="infor_title">';
                              redundantHtml += '<span>'+depositsHistory[i].title+'</span>';
                              redundantHtml += '</p>';
-                             redundantHtml += '<p class="record_plan">小票号：<em>'+pastRecordsUserId[i]+'</em> <span class="record_t">消费: <i>'+depositsHistory[i].money +'</i></span></p>';
+                             redundantHtml += '<p class="record_plan">小票号：<em>'+pastRecordsUserId[i]+'</em> <span class="record_t">消费: <i>'+(depositsHistory[i].money /100).toFixed(2)+'</i></span></p>';
                              redundantHtml += '</div>';
                              redundantHtml += '<div class="record_img">';
                              if(depositsHistory[i].status == 0){ // 0 未审核
                                 redundantHtml += '<span class="yellow">待审核</span>';
                              }else if(depositsHistory[i].status == 1){  //1 已通过
-                                redundantHtml += ' <span class="green">'+pastRecordsSumo[i]/100+'</span>';
+                                redundantHtml += ' <span class="green">'+(pastRecordsSumo[i]/100).toFixed(2)+'</span>';
                             } else if(depositsHistory[i].status == 2){ //2 未通过
                                 redundantHtml += ' <span class="red">虚假信息</span>';
                             }
@@ -71,7 +72,7 @@ $(function(){
     
                         sStorage.uri_goods = uri;//id
                         sStorage.img= pastImg;//小票图片
-                        sStorage.cash= pastMoney/100;//奖励钱
+                        sStorage.cash= (pastMoney/100).toFixed(2);//奖励钱
                         sStorage.slogan= pastTitle;//标题
                         sStorage.smallBanks = pastUser;//小票号
                         sStorage.final = pastActual;//状态
@@ -124,13 +125,13 @@ $(function(){
                                 existHtml += '<p class="infor_title">';
                                 existHtml += '<span>'+rsList[i].title+'</span>';
                                 existHtml += '</p>';
-                                existHtml += '<p class="record_plan">小票号：<em>'+receipts+'</em> <span class="record_t">消费: <i>'+rsList[i].money +'</i></span></p>';
+                                existHtml += '<p class="record_plan">小票号：<em>'+receipts+'</em> <span class="record_t">消费: <i>'+(rsList[i].money/100).toFixed(2) +'</i></span></p>';
                                 existHtml += '</div>';
                                 existHtml += '<div class="record_img">';
                                 if(rsList[i].status == 0){  // 0 未审核
                                     existHtml += '<span class="yellow">待审核</span>';
                                 } else if(rsList[i].status == 1){  //1 已通过
-                                    existHtml += ' <span class="green">'+rsList[i].profit+'</span>';
+                                    existHtml += ' <span class="green">'+(rsList[i].profit/100).toFixed(2)+'</span>';
                                 }else if(rsList[i].status == 2){ //2 未通过
                                     existHtml += ' <span class="red">虚假信息</span>';
                                 }
@@ -155,7 +156,7 @@ $(function(){
     
                         sStorage.uri_goods = uri;//id
                         sStorage.img= pastImg;//小票图片
-                        sStorage.cash= pastMoney/100;//奖励钱
+                        sStorage.cash= (pastMoney/100).toFixed(2);//奖励钱
                         sStorage.slogan= pastTitle;//标题
                         sStorage.smallBanks = pastUser;//小票号
                         sStorage.final = pastActual;//状态
@@ -212,7 +213,6 @@ $(function(){
                 url_type:'receipts'
             },
             success: function(data) {
-                console.log(data,'kj')
                 var depositsHistory =data.result.rs;
                 var pastRecordsId = jsel.match('.id', depositsHistory);//获得id
                 var pastRecordsSumo =jsel.match('.profit', depositsHistory);//获得奖励钱数
@@ -230,13 +230,13 @@ $(function(){
                              redundantHtml += '<p class="infor_title">';
                              redundantHtml += '<span>'+depositsHistory[i].title+'</span>';
                              redundantHtml += '</p>';
-                             redundantHtml += '<p class="record_plan">小票号：<em>'+pastRecordsUserId[i]+'</em> <span class="record_t">消费: <i>'+depositsHistory[i].money +'</i></span></p>';
+                             redundantHtml += '<p class="record_plan">小票号：<em>'+pastRecordsUserId[i]+'</em> <span class="record_t">消费: <i>'+(depositsHistory[i].money/100).toFixed(2) +'</i></span></p>';
                              redundantHtml += '</div>';
                              redundantHtml += '<div class="record_img">';
                              if(depositsHistory[i].status == 0){ // 0 未审核
                                 redundantHtml += '<span class="yellow">待审核</span>';
                              }else if(depositsHistory[i].status == 1){  //1 已通过
-                                redundantHtml += ' <span class="green">'+pastRecordsSumo[i]/100+'</span>';
+                                redundantHtml += ' <span class="green">'+(pastRecordsSumo[i]/100).toFixed(2)+'</span>';
                             } else if(depositsHistory[i].status == 2){ //2 未通过
                                 redundantHtml += ' <span class="red">虚假信息</span>';
                             }
@@ -262,7 +262,7 @@ $(function(){
     
                         sStorage.uri_goods = uri;//id
                         sStorage.img= pastImg;//小票图片
-                        sStorage.cash= pastMoney/100;//奖励钱
+                        sStorage.cash= (pastMoney/100).toFixed(2);//奖励钱
                         sStorage.slogan= pastTitle;//标题
                         sStorage.smallBanks = pastUser;//小票号
                         sStorage.final = pastActual;//状态
@@ -318,13 +318,13 @@ $(function(){
                              redundantHtml += '<p class="infor_title">';
                              redundantHtml += '<span>'+depositsHistory[i].title+'</span>';
                              redundantHtml += '</p>';
-                             redundantHtml += '<p class="record_plan">小票号：<em>'+pastRecordsUserId[i]+'</em> <span class="record_t">消费: <i>'+depositsHistory[i].money +'</i></span></p>';
+                             redundantHtml += '<p class="record_plan">小票号：<em>'+pastRecordsUserId[i]+'</em> <span class="record_t">消费: <i>'+(depositsHistory[i].money/100).toFixed(2) +'</i></span></p>';
                              redundantHtml += '</div>';
                              redundantHtml += '<div class="record_img">';
                              if(depositsHistory[i].status == 0){ // 0 未审核
                                 redundantHtml += '<span class="yellow">待审核</span>';
                              }else if(depositsHistory[i].status == 1){  //1 已通过
-                                redundantHtml += ' <span class="green">'+pastRecordsSumo[i]/100+'</span>';
+                                redundantHtml += ' <span class="green">'+(pastRecordsSumo[i]/100).toFixed(2)+'</span>';
                             } else if(depositsHistory[i].status == 2){ //2 未通过
                                 redundantHtml += ' <span class="red">虚假信息</span>';
                             }
@@ -350,7 +350,7 @@ $(function(){
     
                         sStorage.uri_goods = uri;//id
                         sStorage.img= pastImg;//小票图片
-                        sStorage.cash= pastMoney/100;//奖励钱
+                        sStorage.cash= (pastMoney/100).toFixed(2);//奖励钱
                         sStorage.slogan= pastTitle;//标题
                         sStorage.smallBanks = pastUser;//小票号
                         sStorage.final = pastActual;//状态
@@ -408,13 +408,13 @@ $(function(){
                              redundantHtml += '<p class="infor_title">';
                              redundantHtml += '<span>'+depositsHistory[i].title+'</span>';
                              redundantHtml += '</p>';
-                             redundantHtml += '<p class="record_plan">小票号：<em>'+pastRecordsUserId[i]+'</em> <span class="record_t">消费: <i>'+depositsHistory[i].money +'</i></span></p>';
+                             redundantHtml += '<p class="record_plan">小票号：<em>'+pastRecordsUserId[i]+'</em> <span class="record_t">消费: <i>'+(depositsHistory[i].money/100).toFixed(2) +'</i></span></p>';
                              redundantHtml += '</div>';
                              redundantHtml += '<div class="record_img">';
                              if(depositsHistory[i].status == 0){ // 0 未审核
                                 redundantHtml += '<span class="yellow">待审核</span>';
                              }else if(depositsHistory[i].status == 1){  //1 已通过
-                                redundantHtml += ' <span class="green">'+pastRecordsSumo[i]/100+'</span>';
+                                redundantHtml += ' <span class="green">'+(pastRecordsSumo[i]/100).toFixed(2)+'</span>';
                             } else if(depositsHistory[i].status == 2){ //2 未通过
                                 redundantHtml += ' <span class="red">虚假信息</span>';
                             }
@@ -439,7 +439,7 @@ $(function(){
     
                         sStorage.uri_goods = uri;//id
                         sStorage.img= pastImg;//小票图片
-                        sStorage.cash= pastMoney/100;//奖励钱
+                        sStorage.cash= (pastMoney/100).toFixed(2);//奖励钱
                         sStorage.slogan= pastTitle;//标题
                         sStorage.smallBanks = pastUser;//小票号
                         sStorage.final = pastActual;//状态
@@ -478,7 +478,6 @@ $(function(){
                 url_type:'receipts'
             },
             success: function(data) {
-                console.log(data,'kj')
                 var depositsHistory =data.result.rs;
                 var pastRecordsId = jsel.match('.id', depositsHistory);//获得id
                 var pastRecordsSumo =jsel.match('.profit', depositsHistory);//获得奖励钱数
@@ -496,13 +495,13 @@ $(function(){
                              redundantHtml += '<p class="infor_title">';
                              redundantHtml += '<span>'+depositsHistory[i].title+'</span>';
                              redundantHtml += '</p>';
-                             redundantHtml += '<p class="record_plan">小票号：<em>'+pastRecordsUserId[i]+'</em> <span class="record_t">消费: <i>'+depositsHistory[i].money +'</i></span></p>';
+                             redundantHtml += '<p class="record_plan">小票号：<em>'+pastRecordsUserId[i]+'</em> <span class="record_t">消费: <i>'+(depositsHistory[i].money /100).toFixed(2)+'</i></span></p>';
                              redundantHtml += '</div>';
                              redundantHtml += '<div class="record_img">';
                              if(depositsHistory[i].status == 0){ // 0 未审核
                                 redundantHtml += '<span class="yellow">待审核</span>';
                              }else if(depositsHistory[i].status == 1){  //1 已通过
-                                redundantHtml += ' <span class="green">'+pastRecordsSumo[i]/100+'</span>';
+                                redundantHtml += ' <span class="green">'+(pastRecordsSumo[i]/100).toFixed(2)+'</span>';
                             } else if(depositsHistory[i].status == 2){ //2 未通过
                                 redundantHtml += ' <span class="red">虚假信息</span>';
                             }
@@ -528,7 +527,7 @@ $(function(){
     
                         sStorage.uri_goods = uri;//id
                         sStorage.img= pastImg;//小票图片
-                        sStorage.cash= pastMoney/100;//奖励钱
+                        sStorage.cash= (pastMoney/100).toFixed(2);//奖励钱
                         sStorage.slogan= pastTitle;//标题
                         sStorage.smallBanks = pastUser;//小票号
                         sStorage.final = pastActual;//状态

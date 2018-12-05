@@ -1,3 +1,12 @@
+
+window.jsel = JSONSelect;
+var uri = localStorage.getItem('uri_goods');//拿到传过来的id
+var situation = localStorage.getItem('equation');//状态
+var dough = localStorage.getItem('cash');//奖励钱
+var title = localStorage.getItem('slogan');//标题
+var small = localStorage.getItem('smallBanks');//人数
+console.log(uri,situation,dough,title,small,'lk')
+
 $(function(){
 	$('#task_help').click(function(){
 		$('#modal_help').show();
