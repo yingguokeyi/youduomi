@@ -159,6 +159,31 @@ imng{
     margin-top: 1.15rem;
 
 }
+/* 左边图片的钱数样式 */
+.p_purse{
+    display: block;
+    width: 0.25rem;
+    height: 0.25rem;
+    line-height: 0.25rem;
+    text-align: center;
+    position: absolute;
+    font-size: 0.26rem;
+    color: #f8c03f;
+    margin-left: 0.73rem;
+    margin-top: 0.87rem;
+}
+.y_purse{
+    display: block;
+    width: 0.25rem;
+    height: 0.25rem;
+    line-height: 0.25rem;
+    text-align: center;
+    position: absolute;
+    font-size: 0.26rem;
+    color: #999999;
+    margin-left: 0.73rem;
+    margin-top: 0.87rem;
+}
 /* 完成的样式 */
 .main_content_a_ash {
     width:4.40rem;
