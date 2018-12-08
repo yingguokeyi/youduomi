@@ -5,7 +5,9 @@ var situation = localStorage.getItem('equation');//状态
 var dough = localStorage.getItem('cash');//奖励钱
 var title = localStorage.getItem('slogan');//标题
 var small = localStorage.getItem('smallBanks');//人数
-console.log(uri,situation,dough,title,small,'lk')
+var restTime = localStorage.getItem('endingTime');//时间
+
+console.log(uri,situation,dough,title,small,restTime,'lk')
 
 $(function(){
 	$('#task_help').click(function(){
