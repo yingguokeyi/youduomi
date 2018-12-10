@@ -52,6 +52,7 @@ var id ='';
                 var goodListHtml = '';
                for(var i=0; i<allTasks.length;i++ ){
                     if(allTasks[i].state == 0){  //已有多少人完成
+                        
                         goodListHtml += '<li class="main_content_li mtw_k"  data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-number='+peopleNumber[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+' >';
                         goodListHtml += '<span class="main_content_a_left">';
                         goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';

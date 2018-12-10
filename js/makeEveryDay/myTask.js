@@ -90,7 +90,9 @@ function placard(page,urlStatus){
                              //获取开始时间
                             var startTime = detailsRst[i].create_time;
                             id = detailsRst[i].id;
-                            
+                             //   //获取开始创建时间
+                            var warnsTime  = detailsRst[i].task_create_time;
+                            var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
                             // 开始时间的总秒数
                             var startTimetm = "20" + startTime.substring(0, 2) + "/" + startTime.substring(2, 4) + "/" + startTime.substring(4, 6) + " " + startTime.substring(6, 8) + ":" + startTime.substring(8, 10) + ":" + startTime.substring(10, 12);
                             var startDate = new Date(startTimetm).getTime();
@@ -130,6 +132,9 @@ function placard(page,urlStatus){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 3){//审核中
+                             //   //获取开始创建时间
+                             var warnsTime  = detailsRst[i].task_create_time;
+                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
                             goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
@@ -147,6 +152,9 @@ function placard(page,urlStatus){
                             goodListHtml += '</li>';
                         }
                          if(detailsRst[i].state == 4){//审核失败
+                             //   //获取开始创建时间
+                             var warnsTime  = detailsRst[i].task_create_time;
+                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
                             
                             goodListHtml += '<li class="main_content_li" id="task_apply">';
                             goodListHtml += '<span class="main_content_a_left">';
@@ -163,6 +171,9 @@ function placard(page,urlStatus){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 5){//已完成
+                             //   //获取开始创建时间
+                             var warnsTime  = detailsRst[i].task_create_time;
+                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
                             
                             goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
@@ -181,6 +192,9 @@ function placard(page,urlStatus){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 6){//已过期
+                             //   //获取开始创建时间
+                             var warnsTime  = detailsRst[i].task_create_time;
+                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
                             
                             goodListHtml += '<li class="main_content_li">';
                             goodListHtml += '<span class="main_content_a_left">';
@@ -417,7 +431,9 @@ function placard(page,urlStatus){
                              // 开始时间的总秒数
                              var startTimetm = "20" + startTime.substring(0, 2) + "/" + startTime.substring(2, 4) + "/" + startTime.substring(4, 6) + " " + startTime.substring(6, 8) + ":" + startTime.substring(8, 10) + ":" + startTime.substring(10, 12);
                              var startDate = new Date(startTimetm).getTime();
-                             
+                              //   //获取开始创建时间
+                              var warnsTime  = detailsRst[i].task_create_time;
+                              var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
                              // 获取结束时间
                              var endTime = detailsRst[i].create_end_time;
                              // 结束时间的总秒数
@@ -453,6 +469,9 @@ function placard(page,urlStatus){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 3){//审核中
+                             //   //获取开始创建时间
+                             var warnsTime  = detailsRst[i].task_create_time;
+                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
                             goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
@@ -470,6 +489,9 @@ function placard(page,urlStatus){
                             goodListHtml += '</li>';
                         }
                          if(detailsRst[i].state == 4){//审核失败
+                             //   //获取开始创建时间
+                             var warnsTime  = detailsRst[i].task_create_time;
+                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
                             
                             goodListHtml += '<li class="main_content_li"  id="task_apply">';
                             goodListHtml += '<span class="main_content_a_left">';
@@ -486,6 +508,9 @@ function placard(page,urlStatus){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 5){//已完成
+                             //   //获取开始创建时间
+                             var warnsTime  = detailsRst[i].task_create_time;
+                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
                             
                             goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
@@ -504,6 +529,9 @@ function placard(page,urlStatus){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 6){//已过期
+                             //   //获取开始创建时间
+                             var warnsTime  = detailsRst[i].task_create_time;
+                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
                             
                             goodListHtml += '<li class="main_content_li">';
                             goodListHtml += '<span class="main_content_a_left">';
@@ -730,7 +758,9 @@ function placard(page,urlStatus){
                              //获取开始时间
                              var startTime = detailsRst[i].create_time;
                              id = detailsRst[i].id;
-                             
+                              //   //获取开始创建时间
+                              var warnsTime  = detailsRst[i].task_create_time;
+                              var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
                              // 开始时间的总秒数
                              var startTimetm = "20" + startTime.substring(0, 2) + "/" + startTime.substring(2, 4) + "/" + startTime.substring(4, 6) + " " + startTime.substring(6, 8) + ":" + startTime.substring(8, 10) + ":" + startTime.substring(10, 12);
                              var startDate = new Date(startTimetm).getTime();
@@ -770,6 +800,9 @@ function placard(page,urlStatus){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 3){//审核中
+                             //   //获取开始创建时间
+                             var warnsTime  = detailsRst[i].task_create_time;
+                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
                             goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
@@ -787,7 +820,9 @@ function placard(page,urlStatus){
                             goodListHtml += '</li>';
                         }
                          if(detailsRst[i].state == 4){//审核失败
-                            
+                             //   //获取开始创建时间
+                             var warnsTime  = detailsRst[i].task_create_time;
+                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
                             goodListHtml += '<li class="main_content_li" id="task_apply">';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
@@ -803,7 +838,9 @@ function placard(page,urlStatus){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 5){//已完成
-                            
+                             //   //获取开始创建时间
+                             var warnsTime  = detailsRst[i].task_create_time;
+                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
                             goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
@@ -821,7 +858,9 @@ function placard(page,urlStatus){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 6){//已过期
-                            
+                             //   //获取开始创建时间
+                             var warnsTime  = detailsRst[i].task_create_time;
+                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
                             goodListHtml += '<li class="main_content_li">';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/ash.png">';
@@ -1038,6 +1077,9 @@ $('#completed').click(function(){
                 var stopTime = jsel.match('.create_end_time', detailsRst);//结束时间
                 var beginTime = jsel.match('.task_create_time', detailsRst);//开始时间
                 var foundTime = jsel.match('.create_time', detailsRst);//用户创建任务开始的时间
+                // var warnsTime = jsel.match('.task_create_time', detailsRst);//年月日
+                // warnTime = warnsTime[i]
+
                 var goodListHtml = '';
                 if(detailsRst.length!=0){
                     for(var i= 0 ; i<detailsRst.length;i++){
@@ -1046,11 +1088,15 @@ $('#completed').click(function(){
                              //获取开始时间
                              var startTime = detailsRst[i].create_time;
                              id = detailsRst[i].id;
-                             
+                              //   //获取开始创建时间
+                              var warnsTime  = detailsRst[i].task_create_time;
+                              var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
                              // 开始时间的总秒数
                              var startTimetm = "20" + startTime.substring(0, 2) + "/" + startTime.substring(2, 4) + "/" + startTime.substring(4, 6) + " " + startTime.substring(6, 8) + ":" + startTime.substring(8, 10) + ":" + startTime.substring(10, 12);
                              var startDate = new Date(startTimetm).getTime();
-                             
+                             //   //获取开始创建时间
+                             var warnsTime  = detailsRst[i].task_create_time;
+                             warnTime =  warnTime.substring(2, 4) + "月" + endTime.substring(4, 6);
                              // 获取结束时间
                              var endTime = detailsRst[i].create_end_time;
                              // 结束时间的总秒数
@@ -1085,6 +1131,10 @@ $('#completed').click(function(){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 3){//审核中
+                             //   //获取开始创建时间
+                             var warnsTime  = detailsRst[i].task_create_time;
+                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
+
                             goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
@@ -1102,6 +1152,9 @@ $('#completed').click(function(){
                             goodListHtml += '</li>';
                         }
                          if(detailsRst[i].state == 4){//审核失败
+                             //   //获取开始创建时间
+                             var warnsTime  = detailsRst[i].task_create_time;
+                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
                             
                             goodListHtml += '<li class="main_content_li"  id="task_apply">';
                             goodListHtml += '<span class="main_content_a_left">';
@@ -1118,6 +1171,9 @@ $('#completed').click(function(){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 5){//已完成
+                             //   //获取开始创建时间
+                             var warnsTime  = detailsRst[i].task_create_time;
+                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
                             
                             goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
@@ -1136,6 +1192,9 @@ $('#completed').click(function(){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 6){//已过期
+                             //   //获取开始创建时间
+                             var warnsTime  = detailsRst[i].task_create_time;
+                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
                             
                             goodListHtml += '<li class="main_content_li">';
                             goodListHtml += '<span class="main_content_a_left">';
