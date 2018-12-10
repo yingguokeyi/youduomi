@@ -26,10 +26,18 @@
 	width: 25%;
 	height: 1.12rem;
 	float: left;
+	position: relative;
 }
 .top_img img{
 	width: 1.12rem;
 	height: 100%;
+}
+.top_money{
+	color: #f8c03f;
+	font-size: .26rem;
+	position: absolute;
+	top: .45rem;
+    right: .7rem;
 }
 .top_txt{
 	width: 75%;
@@ -40,7 +48,7 @@
 	color: #333;
 	margin-top: .18rem;
 }
-.top_txt p:nth-child(1) span{
+.top_txt p:nth-child(1) .now{
 	font-size: .24rem;
 	color: #999;
 	margin-left: .14rem;

@@ -1,4 +1,5 @@
 $(function(){
+    var uri = localStorage.getItem('uri_goods');//拿到传过来的id
     var num='';
 	$('#test1').click(function(){
 		var test1 = document.getElementById('test1');
@@ -51,7 +52,7 @@ $(function(){
             data: {
                 method: 'addReport',
                 userId:4599,
-                taskId:'32',
+                taskId:uri,
                 type: num,
                 remarks:remark,
                 url_type:'task'
