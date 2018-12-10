@@ -14,9 +14,11 @@ var id ='';
             data: {
                 method: 'getAllTask',
                 userId: 4599,
+                page:page,
                 url_type:"task"
             },
             success: function(data) {
+                console.log(data,'kk')
                 var rsMain = data.result.rs;
                 var taskNumber = data.result.rs[1].result2;
                 // 任务，金额
@@ -40,10 +42,11 @@ var id ='';
                 var captionName = jsel.match('.category_name', allTasks);//获得标题category_name
                 var peopleNumber = jsel.match('.number', allTasks);//获得人数number
                 var stopTime = jsel.match('.create_end_time', allTasks);//结束时间
+                var beginTime = jsel.match('.task_create_time', allTasks);//开始时间
                 var goodListHtml = '';
                for(var i=0; i<allTasks.length;i++ ){
                     if(allTasks[i].state == 0){  //已有多少人完成
-                        goodListHtml += '<li class="main_content_li mtw_k"  data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-number='+peopleNumber[i]+' data-create_end_time='+stopTime[i]+' >';
+                        goodListHtml += '<li class="main_content_li mtw_k"  data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-number='+peopleNumber[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' >';
                         goodListHtml += '<span class="main_content_a_left">';
                         goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                         goodListHtml += '</span>';
@@ -86,7 +89,7 @@ var id ='';
                                },1000)
                         } 
                         
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-number='+peopleNumber[i]+'  data-create_end_time='+stopTime[i]+'>';
+                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-number='+peopleNumber[i]+'  data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += ' </span>';
@@ -130,7 +133,8 @@ var id ='';
                         var pastMoney = $(this).data('bonus');//奖励钱
                         var pastTitle = $(this).data('category_name');//标题
                         var pastNumber = $(this).data('number');//已完成人数
-                        var board = $(this).data('create_end_time');//时间
+                        var board = $(this).data('create_end_time');//结束时间
+                        var initiate = $(this).data('task_create_time');//开始时间
                       
     
                         sStorage = window.localStorage; //本地存题目
@@ -140,8 +144,9 @@ var id ='';
                         sStorage.cash= (pastMoney/100).toFixed(2);//奖励钱
                         sStorage.slogan= pastTitle;//标题
                         sStorage.smallBanks = pastNumber;//已完成人数
-                        sStorage.endingTime = board;//时间
-                       
+                        sStorage.endingTime = board;//结束时间
+                        sStorage.setOutTime = initiate;//开始时间
+
                         var gurl = window.location.href;
     
                         localStorage.setItem('gurl', window.location.href);
@@ -157,7 +162,8 @@ var id ='';
                         var pastMoney = $(this).data('bonus');//奖励钱
                         var pastTitle = $(this).data('category_name');//标题
                         var pastNumber = $(this).data('number');//已完成人数
-                        var board = $(this).data('create_end_time');//时间
+                        var board = $(this).data('create_end_time');//结束时间
+                        var initiate = $(this).data('task_create_time');//开始时间
                       
     
                         sStorage = window.localStorage; //本地存题目
@@ -167,8 +173,8 @@ var id ='';
                         sStorage.cash= (pastMoney/100).toFixed(2);//奖励钱
                         sStorage.slogan= pastTitle;//标题
                         sStorage.smallBanks = pastNumber;//已完成人数
-                        sStorage.endingTime = board;//时间
-                       
+                        sStorage.endingTime = board;//j结束时间
+                        sStorage.setOutTime = initiate;//开始时间
                         var gurl = window.location.href;
     
                         localStorage.setItem('gurl', window.location.href);
@@ -370,10 +376,11 @@ function countdown (totalSecond){
                     var captionName = jsel.match('.category_name', fixationRs);//获得标题category_name
                     var peopleNumber = jsel.match('.number', fixationRs);//获得人数number
                     var stopTime = jsel.match('.create_end_time', fixationRs);//结束时间
+                    var beginTime = jsel.match('.task_create_time', fixationRs);//开始时间
                     var rsHtml ='';
                     for( var i=0;i<fixationRs.length;i++){
                         if(fixationRs[i].state == 0){  //已有多少人完成
-                            rsHtml += '<li class="main_content_li mtw_k"  data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-number='+peopleNumber[i]+' data-create_end_time='+stopTime[i]+'>';
+                            rsHtml += '<li class="main_content_li mtw_k"  data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-number='+peopleNumber[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+'>';
                             rsHtml += '<span class="main_content_a_left">';
                             rsHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             rsHtml += '</span>';
@@ -399,8 +406,8 @@ function countdown (totalSecond){
                         var pastMoney = $(this).data('bonus');//奖励钱
                         var pastTitle = $(this).data('category_name');//标题
                         var pastNumber = $(this).data('number');//已完成人数
-                        var board = $(this).data('create_end_time');//时间
-                       
+                        var board = $(this).data('create_end_time');//结束时间
+                        var initiate = $(this).data('task_create_time');//开始时间
                         
                         sStorage = window.localStorage; //本地存题目
     
@@ -409,8 +416,8 @@ function countdown (totalSecond){
                         sStorage.cash= (pastMoney/100).toFixed(2);//奖励钱
                         sStorage.slogan= pastTitle;//标题
                         sStorage.smallBanks = pastNumber;//已完成人数
-                        sStorage.endingTime = board;//时间
-                       
+                        sStorage.endingTime = board;//结束时间
+                        sStorage.setOutTime = initiate;//开始时间
     
                         var gurl = window.location.href;
     
