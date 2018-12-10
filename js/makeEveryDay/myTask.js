@@ -114,6 +114,24 @@ function placard(page,urlStatus){
                                     countdown(totalSecond)
                                     },1000)
                             } 
+
+                            if (currentDate > endTDate) {//调接口
+                                $.ajax({
+                                    url: domain_name_url + "/task",
+                                    type: "GET",
+                                    dataType: "jsonp", //指定服务器返回的数据类型
+                                    data: {
+                                        method: 'delTask',
+                                        userId: 4599,
+                                        task_id:id,
+                                        url_type:"task"
+                                    },
+                                    success: function(data) {
+                                         $('#orderContent ul').html('');
+                                    }
+                                })
+                                
+                            } 
                        
                             goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
@@ -451,6 +469,23 @@ function placard(page,urlStatus){
                                      countdown(totalSecond)
                                      },1000)
                              } 
+                             if (currentDate > endTDate) {//调接口
+                                $.ajax({
+                                    url: domain_name_url + "/task",
+                                    type: "GET",
+                                    dataType: "jsonp", //指定服务器返回的数据类型
+                                    data: {
+                                        method: 'delTask',
+                                        userId: 4599,
+                                        task_id:id,
+                                        url_type:"task"
+                                    },
+                                    success: function(data) {
+                                         $('#orderContent ul').html('');
+                                    }
+                                })
+                                
+                            } 
                             
                             goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
@@ -782,6 +817,23 @@ function placard(page,urlStatus){
                                      countdown(totalSecond)
                                      },1000)
                              } 
+                             if (currentDate > endTDate) {//调接口
+                                $.ajax({
+                                    url: domain_name_url + "/task",
+                                    type: "GET",
+                                    dataType: "jsonp", //指定服务器返回的数据类型
+                                    data: {
+                                        method: 'delTask',
+                                        userId: 4599,
+                                        task_id:id,
+                                        url_type:"task"
+                                    },
+                                    success: function(data) {
+                                         $('#orderContent ul').html('');
+                                    }
+                                })
+                                
+                            } 
                             
                             goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
@@ -1114,6 +1166,23 @@ $('#completed').click(function(){
                                      countdown(totalSecond)
                                      },1000)
                              } 
+                             if (currentDate > endTDate) {//调接口
+                                $.ajax({
+                                    url: domain_name_url + "/task",
+                                    type: "GET",
+                                    dataType: "jsonp", //指定服务器返回的数据类型
+                                    data: {
+                                        method: 'delTask',
+                                        userId: 4599,
+                                        task_id:id,
+                                        url_type:"task"
+                                    },
+                                    success: function(data) {
+                                         $('#orderContent ul').html('');
+                                    }
+                                })
+                                
+                            } 
                             goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';

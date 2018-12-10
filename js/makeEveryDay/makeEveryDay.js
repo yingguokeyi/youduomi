@@ -46,20 +46,55 @@ var id ='';
                 var foundTime = jsel.match('.create_time', allTasks);//用户创建任务开始的时间
 
                 //获取当前时间
-                var currentDate = new Date();
-                currentDate = currentDate.getTime();
-                console.log(currentDate,'当前时间')
+                var currentDates = new Date();
+                currentDate = currentDates.getTime();
+                //取得当前时间 
+                var year=currentDates.getFullYear(); 
+                var month=currentDates.getMonth()+1;
+                var day=currentDates.getDate();
+                var hour=currentDates.getHours();
+                var minute=currentDates.getMinutes();
+                var second=currentDates.getSeconds(); 
+               var nowdate=year+"/"+month+"/"+day+"  "+hour+":"+minute+":"+second;
+                    
+                console.log(currentDate,nowdate,'当前时间')
                 var goodListHtml = '';
                for(var i=0; i<allTasks.length;i++ ){
                     if(allTasks[i].state == 0){  //已有多少人完成
-                        
+                         //获取开始创建时间
+                         var warnsTime  = allTasks[i].task_create_time;
+                         console.log(warnsTime,'kehu')
+                         var richTime = "20"+warnsTime.substring(0, 2) + "/" + warnsTime.substring(2, 4) + "/" + warnsTime.substring(4, 6) + " " + warnsTime.substring(6, 8) + ":" + warnsTime.substring(8, 10) + ":" + warnsTime.substring(10, 12);
+                         var expiryMonth = warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6)
+                         console.log(richTime,expiryMonth,'kehu1')
+                         var maggotTime = new Date(richTime).getTime();
+                         console.log(maggotTime,'获取开始创建时间1')
+
+                          //获得现在时间-开始创建时间跟一小时进行对比得出今天和刚刚，超出一小时就是今天，反之，月份就用现在时间和开始时间进行对比
+                        //  var  huTime = parseInt((currentDate - maggotTime) / 1000);
+                        //   var hour = Math.floor((huTime%86400)/3600);  
+                        var date3 = currentDate - maggotTime;
+                        // var leave1=date3%(24*3600*1000)    //计算天数后剩余的毫秒数
+                        // var hours=Math.floor(leave1/(3600*1000))
+            
+                        console.log(date3,'相差多少小时1')
+
                         goodListHtml += '<li class="main_content_li mtw_k"  data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-number='+peopleNumber[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+' >';
                         goodListHtml += '<span class="main_content_a_left">';
                         goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                         goodListHtml += '</span>';
                         goodListHtml += '<span class="p_purse">'+(allTasks[i].bonus/100).toFixed(2)+'</span>';
                         goodListHtml += '<span class="main_content_a_right">';
-                        goodListHtml += '<span class="m_c_a_r_top">'+allTasks[i].category_name+'<i class="just_now">刚刚</i></span>';
+                        if( date3 <= 3600000){
+                            goodListHtml += '<span class="m_c_a_r_top">'+allTasks[i].category_name+'<i class="just_now">刚刚</i></span>';
+                        }
+                         if(date3 >3600000){
+                            goodListHtml += '<span class="m_c_a_r_top">'+allTasks[i].category_name+'<i class="just_now">今天</i></span>';
+                        }
+                         if( nowdate > richTime ){
+                            goodListHtml += '<span class="m_c_a_r_top">'+allTasks[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                        }
+                        // goodListHtml += '<span class="m_c_a_r_top">'+allTasks[i].category_name+'<i class="just_now">刚刚</i></span>';
                         goodListHtml += '<span class="m_c_a_r_bottom">';
                         goodListHtml += '<span class="m_c_a_r_bottomleft">已有'+allTasks[i].number+'人领取</span>';
                         goodListHtml += '</span>';
@@ -72,18 +107,23 @@ var id ='';
                      if(allTasks[i].state == 1){  //已经领取，倒计时
                         //获取开始时间
                         var startTime = allTasks[i].create_time;
-                        id = allTasks[i].id;
-                      
                         // 开始时间的总秒数
                         var startTimetm = "20" + startTime.substring(0, 2) + "/" + startTime.substring(2, 4) + "/" + startTime.substring(4, 6) + " " + startTime.substring(6, 8) + ":" + startTime.substring(8, 10) + ":" + startTime.substring(10, 12);
                         var startDate = new Date(startTimetm).getTime();
+
+                        id = allTasks[i].id;
+
+                        //获取开始创建时间
+                        var warnsTime  = allTasks[i].task_create_time;
+                        var richTime = "20" + warnsTime.substring(0, 2) + "/" + warnsTime.substring(2, 4) + "/" + warnsTime.substring(4, 6) + " " + warnsTime.substring(6, 8) + ":" + warnsTime.substring(8, 10) + ":" + warnsTime.substring(10, 12);
+                        var maggotTime = new Date(richTime).getTime();
+                        console.log(maggotTime,'获取开始创建时间')
                         
                         // 获取结束时间
                         var endTime = allTasks[i].create_end_time;
                         // 结束时间的总秒数
-                        sekillEndTime = "20" + endTime.substring(0, 2) + "/" + endTime.substring(2, 4) + "/" + endTime.substring(4, 6) + " " + endTime.substring(6, 8) + ":" + endTime.substring(8, 10) + ":" + endTime.substring(10, 12);
+                        var sekillEndTime = "20" + endTime.substring(0, 2) + "/" + endTime.substring(2, 4) + "/" + endTime.substring(4, 6) + " " + endTime.substring(6, 8) + ":" + endTime.substring(8, 10) + ":" + endTime.substring(10, 12);
                         var endTDate = new Date(sekillEndTime).getTime();
-                        
                         //时间段要注意两种情况一种是刚进来就已经开始倒计时，还有就是到页面还没有倒计时，就用结束的时间减去当前的时间
                         var totalSecond;
                         if (startDate < currentDate  && currentDate <= endTDate) {//已经在倒计时了
@@ -91,8 +131,86 @@ var id ='';
                             setTimeout(function () {//已经在倒计时了
                                 countdown(totalSecond)
                                },1000)
+                        }
+                        if ( currentDate > endTDate) {//调接口
+                            $.ajax({
+                                url: domain_name_url + "/task",
+                                type: "GET",
+                                dataType: "jsonp", //指定服务器返回的数据类型
+                                data: {
+                                    method: 'delTask',
+                                    userId: 4599,
+                                    task_id:id,
+                                    url_type:"task"
+                                },
+                                success: function(data) {
+                                 
+                                    var fixationRs = data.result.rs[0].result.result.rs;
+                                   
+                                    var runId = jsel.match('.id', fixationRs);//获得id
+                                    var phaseState = jsel.match('.state', fixationRs);//获得状态state
+                                    var walletBonus = jsel.match('.bonus', fixationRs);//获得钱bonus
+                                    var captionName = jsel.match('.category_name', fixationRs);//获得标题category_name
+                                    var peopleNumber = jsel.match('.number', fixationRs);//获得人数number
+                                    var stopTime = jsel.match('.create_end_time', fixationRs);//结束时间
+                                    var beginTime = jsel.match('.task_create_time', fixationRs);//开始时间
+                                    var foundTime = jsel.match('.create_time', fixationRs);//用户创建任务开始的时间
+                                    var rsHtml ='';
+                                    for( var i=0;i<fixationRs.length;i++){
+                                        if(fixationRs[i].state == 0){  //已有多少人完成
+                                            rsHtml += '<li class="main_content_li mtw_k"  data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-number='+peopleNumber[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
+                                            rsHtml += '<span class="main_content_a_left">';
+                                            rsHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
+                                            rsHtml += '</span>';
+                                            rsHtml += '<span class="p_purse">'+(fixationRs[i].bonus/100).toFixed(2)+'</span>';
+                                            rsHtml += '<span class="main_content_a_right">';
+                                            rsHtml += '<span class="m_c_a_r_top">'+fixationRs[i].category_name+'<i class="just_now">刚刚</i></span>';
+                                            rsHtml += '<span class="m_c_a_r_bottom">';
+                                            rsHtml += '<span class="m_c_a_r_bottomleft">已有'+fixationRs[i].number+'人领取</span>';
+                                            rsHtml += '</span>';
+                                            rsHtml += '</span>';
+                                            rsHtml += '<a class="main_content_a">';
+                                            rsHtml += '<div class="particulars">详情</div>';
+                                            rsHtml += '</a>';
+                                            rsHtml += '</li>';
+                                        } 
+                
+                                    }
+                                    $('#orderContent ul').html('');
+                                    $('#orderContent ul').html(rsHtml);
+                                    $('.mtw_k').click(function(){
+                                        var uri = $(this).data('id');//id
+                                        var pastState = $(this).data('state');//获得状态state
+                                        var pastMoney = $(this).data('bonus');//奖励钱
+                                        var pastTitle = $(this).data('category_name');//标题
+                                        var pastNumber = $(this).data('number');//已完成人数
+                                        var board = $(this).data('create_end_time');//结束时间
+                                        var initiate = $(this).data('task_create_time');//开始时间
+                                        var creation = $(this).data('create_time');//用户开始做任务的时间
+                                        sStorage = window.localStorage; //本地存题目
+                    
+                                        sStorage.uri_goods = uri;//id
+                                        sStorage.equation= pastState;//获得状态state
+                                        sStorage.cash= (pastMoney/100).toFixed(2);//奖励钱
+                                        sStorage.slogan= pastTitle;//标题
+                                        sStorage.smallBanks = pastNumber;//已完成人数
+                                        sStorage.endingTime = board;//结束时间
+                                        sStorage.setOutTime = initiate;//开始时间
+                                        sStorage.setUptTime = creation;//用户开始做任务的时间
+                                        var gurl = window.location.href;
+                    
+                                        localStorage.setItem('gurl', window.location.href);
+                                        location.href = '../mine/task_details.html?spuId=' + uri +'&url=' + gurl ;
+                                    })
+                                }
+                            })
+                            
                         } 
-                        
+                        //获得现在时间-开始创建时间跟一小时进行对比得出今天和刚刚，超出一小时就是今天，反之，月份就用现在时间和开始时间进行对比
+                       
+                         var hour = Math.floor((currentDate - maggotTime)%86400/3600); 
+                         console.log(hour,'相差多少小时')
+
                             goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-number='+peopleNumber[i]+'  data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
