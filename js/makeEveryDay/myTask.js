@@ -82,6 +82,7 @@ function placard(page,urlStatus){
                 var captionName = jsel.match('.category_name', detailsRst);//获得标题category_name
                 var stopTime = jsel.match('.create_end_time', detailsRst);//结束时间
                 var beginTime = jsel.match('.task_create_time', detailsRst);//开始时间
+                var foundTime = jsel.match('.create_time', detailsRst);//用户创建任务开始的时间
                 var goodListHtml = '';
                 if(detailsRst.length!=0){
                     for(var i= 0 ; i<detailsRst.length;i++){
@@ -112,7 +113,7 @@ function placard(page,urlStatus){
                                     },1000)
                             } 
                        
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+'>';
+                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
@@ -129,7 +130,7 @@ function placard(page,urlStatus){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 3){//审核中
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+'>';
+                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
@@ -163,7 +164,7 @@ function placard(page,urlStatus){
                         }
                         if(detailsRst[i].state == 5){//已完成
                             
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+'>';
+                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
@@ -208,6 +209,7 @@ function placard(page,urlStatus){
                             var pastState = $(this).data('state');//获得状态state
                             var board = $(this).data('create_end_time');//结束时间
                             var initiate = $(this).data('task_create_time');//开始时间
+                            var creation = $(this).data('create_time');//用户开始做任务的时间
                             sStorage = window.localStorage; //本地存题目
                           
     
@@ -217,6 +219,7 @@ function placard(page,urlStatus){
                             sStorage.slogan= pastTitle;//标题
                             sStorage.endingTime = board;//结束时间
                             sStorage.setOutTime = initiate;//开始时间
+                            sStorage.setUptTime = creation;//用户开始做任务的时间
                             var gurl = window.location.href;
         
                             localStorage.setItem('gurl', window.location.href);
@@ -232,6 +235,7 @@ function placard(page,urlStatus){
                             var pastState= $(this).data('state');//获得状态state
                             var board = $(this).data('create_end_time');//结束时间
                             var initiate = $(this).data('task_create_time');//开始时间
+                            var creation = $(this).data('create_time');//用户开始做任务的时间
                             sStorage = window.localStorage; //本地存题目
                          
         
@@ -241,6 +245,7 @@ function placard(page,urlStatus){
                             sStorage.slogan= pastTitle;//标题
                             sStorage.endingTime = board;//结束时间
                             sStorage.setOutTime = initiate;//开始时间
+                            sStorage.setUptTime = creation;//用户开始做任务的时间
                             var gurl = window.location.href;
         
                             localStorage.setItem('gurl', window.location.href);
@@ -264,6 +269,7 @@ function placard(page,urlStatus){
                             var pastTitle = $(this).data('category_name');//标题
                             var board = $(this).data('create_end_time');//结束时间
                             var initiate = $(this).data('task_create_time');//开始时间
+                            var creation = $(this).data('create_time');//用户开始做任务的时间
                             sStorage = window.localStorage; //本地存题目
         
                             sStorage.uri_goods = uri;//id
@@ -272,6 +278,7 @@ function placard(page,urlStatus){
                             sStorage.slogan= pastTitle;//标题
                             sStorage.endingTime = board;//结束时间
                             sStorage.setOutTime = initiate;//开始时间
+                            sStorage.setUptTime = creation;//用户开始做任务的时间
                             var gurl = window.location.href;
         
                             localStorage.setItem('gurl', window.location.href);
@@ -397,6 +404,7 @@ function placard(page,urlStatus){
                 var captionName = jsel.match('.category_name', detailsRst);//获得标题category_name
                 var stopTime = jsel.match('.create_end_time', detailsRst);//结束时间
                 var beginTime = jsel.match('.task_create_time', detailsRst);//开始时间
+                var foundTime = jsel.match('.create_time', detailsRst);//用户创建任务开始的时间
                 var goodListHtml = '';
                 if(detailsRst.length!=0){
                     for(var i= 0 ; i<detailsRst.length;i++){
@@ -428,7 +436,7 @@ function placard(page,urlStatus){
                                      },1000)
                              } 
                             
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+'>';
+                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
@@ -445,7 +453,7 @@ function placard(page,urlStatus){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 3){//审核中
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+'>';
+                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
@@ -479,7 +487,7 @@ function placard(page,urlStatus){
                         }
                         if(detailsRst[i].state == 5){//已完成
                             
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+'>';
+                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
@@ -524,6 +532,7 @@ function placard(page,urlStatus){
                             var pastState = $(this).data('state');//获得状态state
                             var board = $(this).data('create_end_time');//结束时间
                             var initiate = $(this).data('task_create_time');//开始时间
+                            var creation = $(this).data('create_time');//用户开始做任务的时间
                             sStorage = window.localStorage; //本地存题目
                          
         
@@ -533,6 +542,7 @@ function placard(page,urlStatus){
                             sStorage.slogan= pastTitle;//标题
                             sStorage.endingTime = board;//结束时间
                             sStorage.setOutTime = initiate;//开始时间
+                            sStorage.setUptTime = creation;//用户开始做任务的时间
                             var gurl = window.location.href;
         
                             localStorage.setItem('gurl', window.location.href);
@@ -547,6 +557,7 @@ function placard(page,urlStatus){
                             var pastState = $(this).data('state');//获得状态state
                             var board = $(this).data('create_end_time');//结束时间
                             var initiate = $(this).data('task_create_time');//开始时间
+                            var creation = $(this).data('create_time');//用户开始做任务的时间
                             sStorage = window.localStorage; //本地存题目
                            
         
@@ -556,6 +567,7 @@ function placard(page,urlStatus){
                             sStorage.slogan= pastTitle;//标题
                             sStorage.endingTime = board;//结束时间
                             sStorage.setOutTime = initiate;//开始时间
+                            sStorage.setUptTime = creation;//用户开始做任务的时间
                             var gurl = window.location.href;
         
                             localStorage.setItem('gurl', window.location.href);
@@ -579,6 +591,7 @@ function placard(page,urlStatus){
                             var pastTitle = $(this).data('category_name');//标题
                             var board = $(this).data('create_end_time');//结束时间
                             var initiate = $(this).data('task_create_time');//开始时间
+                            var creation = $(this).data('create_time');//用户开始做任务的时间
                             sStorage = window.localStorage; //本地存题目
         
                             sStorage.uri_goods = uri;//id
@@ -586,7 +599,8 @@ function placard(page,urlStatus){
                             sStorage.cash= (pastMoney/100).toFixed(2);//奖励钱
                             sStorage.slogan= pastTitle;//标题
                             sStorage.endingTime = board;//结束时间   
-                            sStorage.setOutTime = initiate;//开始时间                         
+                            sStorage.setOutTime = initiate;//开始时间
+                            sStorage.setUptTime = creation;//用户开始做任务的时间                         
                             var gurl = window.location.href;
         
                             localStorage.setItem('gurl', window.location.href);
@@ -708,6 +722,7 @@ function placard(page,urlStatus){
                 var captionName = jsel.match('.category_name', detailsRst);//获得标题category_name
                 var stopTime = jsel.match('.create_end_time', detailsRst);//结束时间
                 var beginTime = jsel.match('.task_create_time', detailsRst);//开始时间
+                var foundTime = jsel.match('.create_time', detailsRst);//用户创建任务开始的时间
                 var goodListHtml = '';
                 if(detailsRst.length!=0){
                     for(var i= 0 ; i<detailsRst.length;i++){
@@ -738,7 +753,7 @@ function placard(page,urlStatus){
                                      },1000)
                              } 
                             
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+'>';
+                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
@@ -755,7 +770,7 @@ function placard(page,urlStatus){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 3){//审核中
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+'>';
+                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
@@ -789,7 +804,7 @@ function placard(page,urlStatus){
                         }
                         if(detailsRst[i].state == 5){//已完成
                             
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+'>';
+                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
@@ -834,6 +849,7 @@ function placard(page,urlStatus){
                             var pastState = $(this).data('state');//获得状态state
                             var board = $(this).data('create_end_time');//结束时间
                             var initiate = $(this).data('task_create_time');//开始时间
+                            var creation = $(this).data('create_time');//用户开始做任务的时间
                             sStorage = window.localStorage; //本地存题目
                            
         
@@ -843,6 +859,7 @@ function placard(page,urlStatus){
                             sStorage.slogan= pastTitle;//标题
                             sStorage.endingTime = board;//结束时间
                             sStorage.setOutTime = initiate;//开始时间
+                            sStorage.setUptTime = creation;//用户开始做任务的时间
                             var gurl = window.location.href;
         
                             localStorage.setItem('gurl', window.location.href);
@@ -857,6 +874,7 @@ function placard(page,urlStatus){
                             var pastState = $(this).data('state');//获得状态state
                             var board = $(this).data('create_end_time');//结束时间
                             var initiate = $(this).data('task_create_time');//开始时间
+                            var creation = $(this).data('create_time');//用户开始做任务的时间
                             sStorage = window.localStorage; //本地存题目
                            
         
@@ -866,6 +884,7 @@ function placard(page,urlStatus){
                             sStorage.slogan= pastTitle;//标题
                             sStorage.endingTime = board;//结束时间
                             sStorage.setOutTime = initiate;//开始时间
+                            sStorage.setUptTime = creation;//用户开始做任务的时间
                             var gurl = window.location.href;
         
                             localStorage.setItem('gurl', window.location.href);
@@ -889,6 +908,7 @@ function placard(page,urlStatus){
                             var pastTitle = $(this).data('category_name');//标题
                             var board = $(this).data('create_end_time');//结束时间
                             var initiate = $(this).data('task_create_time');//开始时间
+                            var creation = $(this).data('create_time');//用户开始做任务的时间
                             sStorage = window.localStorage; //本地存题目
         
                             sStorage.uri_goods = uri;//id
@@ -897,6 +917,7 @@ function placard(page,urlStatus){
                             sStorage.slogan= pastTitle;//标题
                             sStorage.endingTime = board;//结束时间
                             sStorage.setOutTime = initiate;//开始时间
+                            sStorage.setUptTime = creation;//用户开始做任务的时间
                             var gurl = window.location.href;
         
                             localStorage.setItem('gurl', window.location.href);
@@ -1016,6 +1037,7 @@ $('#completed').click(function(){
                 var captionName = jsel.match('.category_name', detailsRst);//获得标题category_name
                 var stopTime = jsel.match('.create_end_time', detailsRst);//结束时间
                 var beginTime = jsel.match('.task_create_time', detailsRst);//开始时间
+                var foundTime = jsel.match('.create_time', detailsRst);//用户创建任务开始的时间
                 var goodListHtml = '';
                 if(detailsRst.length!=0){
                     for(var i= 0 ; i<detailsRst.length;i++){
@@ -1046,7 +1068,7 @@ $('#completed').click(function(){
                                      countdown(totalSecond)
                                      },1000)
                              } 
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+'>';
+                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
@@ -1063,7 +1085,7 @@ $('#completed').click(function(){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 3){//审核中
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+'>';
+                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
@@ -1097,7 +1119,7 @@ $('#completed').click(function(){
                         }
                         if(detailsRst[i].state == 5){//已完成
                             
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+'>';
+                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
@@ -1142,6 +1164,7 @@ $('#completed').click(function(){
                             var pastState = $(this).data('state');//获得状态state
                             var board = $(this).data('create_end_time');//结束时间
                             var initiate = $(this).data('task_create_time');//开始时间
+                            var creation = $(this).data('create_time');//用户开始做任务的时间
                             sStorage = window.localStorage; //本地存题目
                            
         
@@ -1151,6 +1174,7 @@ $('#completed').click(function(){
                             sStorage.slogan= pastTitle;//标题
                             sStorage.endingTime = board;//结束时间
                             sStorage.setOutTime = initiate;//开始时间
+                            sStorage.setUptTime = creation;//用户开始做任务的时间
                             var gurl = window.location.href;
         
                             localStorage.setItem('gurl', window.location.href);
@@ -1165,6 +1189,7 @@ $('#completed').click(function(){
                             var pastState = $(this).data('state');//获得状态state
                             var board = $(this).data('create_end_time');//结束时间
                             var initiate = $(this).data('task_create_time');//开始时间
+                            var creation = $(this).data('create_time');//用户开始做任务的时间
                             sStorage = window.localStorage; //本地存题目
         
                             sStorage.uri_goods = uri;//id
@@ -1173,6 +1198,7 @@ $('#completed').click(function(){
                             sStorage.slogan= pastTitle;//标题
                             sStorage.endingTime = board;//结束时间
                             sStorage.setOutTime = initiate;//开始时间
+                            sStorage.setUptTime = creation;//用户开始做任务的时间
                             var gurl = window.location.href;
         
                             localStorage.setItem('gurl', window.location.href);
@@ -1196,6 +1222,7 @@ $('#completed').click(function(){
                             var pastTitle = $(this).data('category_name');//标题
                             var board = $(this).data('create_end_time');//结束时间
                             var initiate = $(this).data('task_create_time');//开始时间
+                            var creation = $(this).data('create_time');//用户开始做任务的时间
                             sStorage = window.localStorage; //本地存题目
         
                             sStorage.uri_goods = uri;//id
@@ -1204,6 +1231,7 @@ $('#completed').click(function(){
                             sStorage.slogan= pastTitle;//标题
                             sStorage.endingTime = board;//结束时间
                             sStorage.setOutTime = initiate;//开始时间
+                            sStorage.setUptTime = creation;//用户开始做任务的时间
                             var gurl = window.location.href;
         
                             localStorage.setItem('gurl', window.location.href);
