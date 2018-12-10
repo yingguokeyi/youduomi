@@ -127,7 +127,7 @@ function placard(page){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 3){//审核中
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+'>';
+                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
@@ -161,7 +161,7 @@ function placard(page){
                         }
                         if(detailsRst[i].state == 5){//已完成
                             
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+'>';
+                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
@@ -256,12 +256,14 @@ function placard(page){
                             var pastState = $(this).data('state');//获得状态state
                             var pastMoney = $(this).data('bonus');//奖励钱
                             var pastTitle = $(this).data('category_name');//标题
+                            var board = $(this).data('create_end_time');//时间
                             sStorage = window.localStorage; //本地存题目
         
                             sStorage.uri_goods = uri;//id
                             sStorage.equation= pastState;//获得状态state
                             sStorage.cash= (pastMoney/100).toFixed(2);//奖励钱
                             sStorage.slogan= pastTitle;//标题
+                            sStorage.endingTime = board;//时间
                             var gurl = window.location.href;
         
                             localStorage.setItem('gurl', window.location.href);
@@ -434,7 +436,7 @@ function placard(page){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 3){//审核中
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+'>';
+                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
@@ -468,7 +470,7 @@ function placard(page){
                         }
                         if(detailsRst[i].state == 5){//已完成
                             
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+'>';
+                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
@@ -562,12 +564,14 @@ function placard(page){
                             var pastState = $(this).data('state');//获得状态state
                             var pastMoney = $(this).data('bonus');//奖励钱
                             var pastTitle = $(this).data('category_name');//标题
+                            var board = $(this).data('create_end_time');//时间
                             sStorage = window.localStorage; //本地存题目
         
                             sStorage.uri_goods = uri;//id
                             sStorage.equation= pastState;//获得状态state
                             sStorage.cash= (pastMoney/100).toFixed(2);//奖励钱
                             sStorage.slogan= pastTitle;//标题
+                            sStorage.endingTime = board;//时间                            
                             var gurl = window.location.href;
         
                             localStorage.setItem('gurl', window.location.href);
@@ -735,7 +739,7 @@ function placard(page){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 3){//审核中
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+'>';
+                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
@@ -769,7 +773,7 @@ function placard(page){
                         }
                         if(detailsRst[i].state == 5){//已完成
                             
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+'>';
+                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
@@ -863,12 +867,14 @@ function placard(page){
                             var pastState = $(this).data('state');//获得状态state
                             var pastMoney = $(this).data('bonus');//奖励钱
                             var pastTitle = $(this).data('category_name');//标题
+                            var board = $(this).data('create_end_time');//时间
                             sStorage = window.localStorage; //本地存题目
         
                             sStorage.uri_goods = uri;//id
                             sStorage.equation= pastState;//获得状态state
                             sStorage.cash= (pastMoney/100).toFixed(2);//奖励钱
                             sStorage.slogan= pastTitle;//标题
+                            sStorage.endingTime = board;//时间
                             var gurl = window.location.href;
         
                             localStorage.setItem('gurl', window.location.href);
@@ -1034,7 +1040,7 @@ $('#completed').click(function(){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 3){//审核中
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+'>';
+                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
@@ -1068,7 +1074,7 @@ $('#completed').click(function(){
                         }
                         if(detailsRst[i].state == 5){//已完成
                             
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+'>';
+                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
@@ -1161,12 +1167,14 @@ $('#completed').click(function(){
                             var pastState = $(this).data('state');//获得状态state
                             var pastMoney = $(this).data('bonus');//奖励钱
                             var pastTitle = $(this).data('category_name');//标题
+                            var board = $(this).data('create_end_time');//时间
                             sStorage = window.localStorage; //本地存题目
         
                             sStorage.uri_goods = uri;//id
                             sStorage.equation= pastState;//获得状态state
                             sStorage.cash= (pastMoney/100).toFixed(2);//奖励钱
                             sStorage.slogan= pastTitle;//标题
+                            sStorage.endingTime = board;//时间
                             var gurl = window.location.href;
         
                             localStorage.setItem('gurl', window.location.href);

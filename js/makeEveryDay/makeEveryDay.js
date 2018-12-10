@@ -43,7 +43,7 @@ var id ='';
                 var goodListHtml = '';
                for(var i=0; i<allTasks.length;i++ ){
                     if(allTasks[i].state == 0){  //已有多少人完成
-                        goodListHtml += '<li class="main_content_li mtw_k"  data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-number='+peopleNumber[i]+'>';
+                        goodListHtml += '<li class="main_content_li mtw_k"  data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-number='+peopleNumber[i]+' data-create_end_time='+stopTime[i]+' >';
                         goodListHtml += '<span class="main_content_a_left">';
                         goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                         goodListHtml += '</span>';
@@ -369,10 +369,11 @@ function countdown (totalSecond){
                     var walletBonus = jsel.match('.bonus', fixationRs);//获得钱bonus
                     var captionName = jsel.match('.category_name', fixationRs);//获得标题category_name
                     var peopleNumber = jsel.match('.number', fixationRs);//获得人数number
+                    var stopTime = jsel.match('.create_end_time', fixationRs);//结束时间
                     var rsHtml ='';
                     for( var i=0;i<fixationRs.length;i++){
                         if(fixationRs[i].state == 0){  //已有多少人完成
-                            rsHtml += '<li class="main_content_li mtw_k"  data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-number='+peopleNumber[i]+'>';
+                            rsHtml += '<li class="main_content_li mtw_k"  data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-number='+peopleNumber[i]+' data-create_end_time='+stopTime[i]+'>';
                             rsHtml += '<span class="main_content_a_left">';
                             rsHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             rsHtml += '</span>';
@@ -398,6 +399,7 @@ function countdown (totalSecond){
                         var pastMoney = $(this).data('bonus');//奖励钱
                         var pastTitle = $(this).data('category_name');//标题
                         var pastNumber = $(this).data('number');//已完成人数
+                        var board = $(this).data('create_end_time');//时间
                        
                         
                         sStorage = window.localStorage; //本地存题目
@@ -407,6 +409,7 @@ function countdown (totalSecond){
                         sStorage.cash= (pastMoney/100).toFixed(2);//奖励钱
                         sStorage.slogan= pastTitle;//标题
                         sStorage.smallBanks = pastNumber;//已完成人数
+                        sStorage.endingTime = board;//时间
                        
     
                         var gurl = window.location.href;
