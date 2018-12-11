@@ -5,6 +5,19 @@ page = 1;
 //任务栏
 var id='';
 
+ //获取当前时间
+ var currentDates = new Date();
+ currentDate = currentDates.getTime();
+ currentDates.getYear(); //获取当前年份(2位)
+ currentDates.getMonth(); //获取当前月份(0-11,0代表1月)
+ currentDates.getDate(); //获取当前日(1-31)
+ currentDates.getHours(); //获取当前小时数(0-23)
+ currentDates.getMinutes(); //获取当前分钟数(0-59)
+ currentDates.getSeconds(); //获取当前秒数(0-59)
+ var Month = currentDates.getMonth()+1;
+ var date = currentDates.getDate();
+ var miao =currentDates.getHours()*3600 + currentDates.getMinutes()*60 + currentDates.getSeconds();
+
 $(function(){
     ask();
     placard();
@@ -12,6 +25,7 @@ $(function(){
 		$(this).children("a").addClass("tabhover").parent().siblings().find("a").removeClass("tabhover");
 	})
 	$('#whole').click(function(){
+        $('#orderContent ul').html('');
 		placard();
 	})
     
@@ -30,7 +44,6 @@ function ask(){
             url_type:"task"
         },
         success: function(data) {
-          
             //头部内容
             var headNumber = data.result.rs[1].result2;
             var headHtml ='';
@@ -89,23 +102,27 @@ function placard(page,urlStatus){
                         if(detailsRst[i].state == 1){//进行中
                              //获取开始时间
                             var startTime = detailsRst[i].create_time;
+                             // 开始时间的总秒数
+                             var startTimetm = "20" + startTime.substring(0, 2) + "/" + startTime.substring(2, 4) + "/" + startTime.substring(4, 6) + " " + startTime.substring(6, 8) + ":" + startTime.substring(8, 10) + ":" + startTime.substring(10, 12);
+                             var startDate = new Date(startTimetm).getTime();
                             id = detailsRst[i].id;
-                             //   //获取开始创建时间
+                             //获取开始创建时间
                             var warnsTime  = detailsRst[i].task_create_time;
-                            var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
-                            // 开始时间的总秒数
-                            var startTimetm = "20" + startTime.substring(0, 2) + "/" + startTime.substring(2, 4) + "/" + startTime.substring(4, 6) + " " + startTime.substring(6, 8) + ":" + startTime.substring(8, 10) + ":" + startTime.substring(10, 12);
-                            var startDate = new Date(startTimetm).getTime();
-                            
+                            var richTime = "20"+warnsTime.substring(0, 2) + "/" + warnsTime.substring(2, 4) + "/" + warnsTime.substring(4, 6) + " " + warnsTime.substring(6, 8) + ":" + warnsTime.substring(8, 10) + ":" + warnsTime.substring(10, 12);
+                            var expiryMonth = warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6)
+                            var sMonth = warnsTime.substring(2, 4);//月份
+                            var sDate = warnsTime.substring(4, 6);//日
+                            var sHour = warnsTime.substring(6, 8);//小时
+                            var sMinute = warnsTime.substring(8, 10);//分钟
+                            var sSecond = warnsTime.substring(10, 12);//秒
+                            var sMiao = sHour*3600 + sMinute*60 + sSecond*1;
+
                             // 获取结束时间
                             var endTime = detailsRst[i].create_end_time;
                             // 结束时间的总秒数
                             sekillEndTime = "20" + endTime.substring(0, 2) + "/" + endTime.substring(2, 4) + "/" + endTime.substring(4, 6) + " " + endTime.substring(6, 8) + ":" + endTime.substring(8, 10) + ":" + endTime.substring(10, 12);
                             var endTDate = new Date(sekillEndTime).getTime();
-                            
-                            //获取当前时间
-                            var currentDate = new Date();
-                            currentDate = currentDate.getTime();
+                           
                             //时间段要注意两种情况一种是刚进来就已经开始倒计时，还有就是到页面还没有倒计时，就用结束的时间减去当前的时间
                             var totalSecond;
                             if (startDate < currentDate  && currentDate <= endTDate) {//已经在倒计时了
@@ -139,7 +156,13 @@ function placard(page,urlStatus){
                             goodListHtml += '</span>';
                             goodListHtml += '<span class="p_purse">'+(detailsRst[i].bonus/100).toFixed(2)+'</span>';
                             goodListHtml += '<span class="main_content_a_right">';
-                            goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+' <i class="just_now">刚刚 </i></span>';
+                            if( miao-sMiao<=3600){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
+                                }else if(miao-sMiao>3600){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">今天</i></span>';
+                                }else if( Month!=sMonth && date!=sDate){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                                }
                             goodListHtml += '<span class="m_c_a_r_bottom">';
                             goodListHtml += '<span class="m_c_a_r_bottomleft" id="drew"></span>';
                             goodListHtml += '</span>';
@@ -150,16 +173,29 @@ function placard(page,urlStatus){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 3){//审核中
-                             //   //获取开始创建时间
-                             var warnsTime  = detailsRst[i].task_create_time;
-                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
+                            //获取开始创建时间
+                            var warnsTime = detailsRst[i].task_create_time;
+                            var richTime = "20"+warnsTime.substring(0, 2) + "/" + warnsTime.substring(2, 4) + "/" + warnsTime.substring(4, 6) + " " + warnsTime.substring(6, 8) + ":" + warnsTime.substring(8, 10) + ":" + warnsTime.substring(10, 12);
+                            var expiryMonth = warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6)
+                            var sMonth = warnsTime.substring(2, 4);//月份
+                            var sDate = warnsTime.substring(4, 6);//日
+                            var sHour = warnsTime.substring(6, 8);//小时
+                            var sMinute = warnsTime.substring(8, 10);//分钟
+                            var sSecond = warnsTime.substring(10, 12);//秒
+                            var sMiao = sHour*3600 + sMinute*60 + sSecond*1;
                             goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
                             goodListHtml += '<span class="p_purse">'+(detailsRst[i].bonus/100).toFixed(2)+'</span>';
                             goodListHtml += '<span class="main_content_a_right">';
-                            goodListHtml += ' <span class="m_c_a_r_top">'+detailsRst[i].category_name+' <i class="just_now">'+warnTime+'</i></span>';
+                            if( miao-sMiao<=3600){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
+                                }else if(miao-sMiao>3600){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">今天</i></span>';
+                                }else if( Month!=sMonth && date!=sDate){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                                }
                             goodListHtml += '<span class="m_c_a_r_bottom">';
                             goodListHtml += '<span class="m_c_a_r_orange">计1-23小时，超时自动到账</span>';
                             goodListHtml += '</span>';
@@ -170,9 +206,16 @@ function placard(page,urlStatus){
                             goodListHtml += '</li>';
                         }
                          if(detailsRst[i].state == 4){//审核失败
-                             //   //获取开始创建时间
-                             var warnsTime  = detailsRst[i].task_create_time;
-                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
+                            //获取开始创建时间
+                            var warnsTime = detailsRst[i].task_create_time;
+                            var richTime = "20"+warnsTime.substring(0, 2) + "/" + warnsTime.substring(2, 4) + "/" + warnsTime.substring(4, 6) + " " + warnsTime.substring(6, 8) + ":" + warnsTime.substring(8, 10) + ":" + warnsTime.substring(10, 12);
+                            var expiryMonth = warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6)
+                            var sMonth = warnsTime.substring(2, 4);//月份
+                            var sDate = warnsTime.substring(4, 6);//日
+                            var sHour = warnsTime.substring(6, 8);//小时
+                            var sMinute = warnsTime.substring(8, 10);//分钟
+                            var sSecond = warnsTime.substring(10, 12);//秒
+                            var sMiao = sHour*3600 + sMinute*60 + sSecond*1;
                             
                             goodListHtml += '<li class="main_content_li" id="task_apply">';
                             goodListHtml += '<span class="main_content_a_left">';
@@ -180,7 +223,13 @@ function placard(page,urlStatus){
                             goodListHtml += '</span>';
                             goodListHtml += '<span class="p_purse">'+(detailsRst[i].bonus/100).toFixed(2)+'</span>';
                             goodListHtml += '<span class="main_content_a_right">';
-                            goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+warnTime+'</i></span>';
+                            if( miao-sMiao<=3600){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
+                                }else if(miao-sMiao>3600){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">今天</i></span>';
+                                }else if( Month!=sMonth && date!=sDate){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                                }
                             goodListHtml += '<span class="m_c_a_r_bottom">';
                             goodListHtml += '<span class="m_c_a_r_red">审核失败</span>';
                             goodListHtml += '</span>';
@@ -189,9 +238,16 @@ function placard(page,urlStatus){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 5){//已完成
-                             //   //获取开始创建时间
-                             var warnsTime  = detailsRst[i].task_create_time;
-                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
+                            //获取开始创建时间
+                            var warnsTime = detailsRst[i].task_create_time;
+                            var richTime = "20"+warnsTime.substring(0, 2) + "/" + warnsTime.substring(2, 4) + "/" + warnsTime.substring(4, 6) + " " + warnsTime.substring(6, 8) + ":" + warnsTime.substring(8, 10) + ":" + warnsTime.substring(10, 12);
+                            var expiryMonth = warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6)
+                            var sMonth = warnsTime.substring(2, 4);//月份
+                            var sDate = warnsTime.substring(4, 6);//日
+                            var sHour = warnsTime.substring(6, 8);//小时
+                            var sMinute = warnsTime.substring(8, 10);//分钟
+                            var sSecond = warnsTime.substring(10, 12);//秒
+                            var sMiao = sHour*3600 + sMinute*60 + sSecond*1;
                             
                             goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
@@ -199,7 +255,13 @@ function placard(page,urlStatus){
                             goodListHtml += '</span>';
                             goodListHtml += '<span class="p_purse">'+(detailsRst[i].bonus/100).toFixed(2)+'</span>';
                             goodListHtml += '<span class="main_content_a_right">';
-                            goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+warnTime+'</i></span>';
+                            if( miao-sMiao<=3600){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
+                                }else if(miao-sMiao>3600){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">今天</i></span>';
+                                }else if( Month!=sMonth && date!=sDate){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                                }
                             goodListHtml += '<span class="m_c_a_r_bottom">';
                             goodListHtml += ' <span class="m_c_a_r_green">获得奖励  '+(detailsRst[i].bonus/100).toFixed(2)+'元</span>';
                             goodListHtml += '</span>';
@@ -210,9 +272,16 @@ function placard(page,urlStatus){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 6){//已过期
-                             //   //获取开始创建时间
-                             var warnsTime  = detailsRst[i].task_create_time;
-                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
+                           //获取开始创建时间
+                            var warnsTime = detailsRst[i].task_create_time;
+                            var richTime = "20"+warnsTime.substring(0, 2) + "/" + warnsTime.substring(2, 4) + "/" + warnsTime.substring(4, 6) + " " + warnsTime.substring(6, 8) + ":" + warnsTime.substring(8, 10) + ":" + warnsTime.substring(10, 12);
+                            var expiryMonth = warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6)
+                            var sMonth = warnsTime.substring(2, 4);//月份
+                            var sDate = warnsTime.substring(4, 6);//日
+                            var sHour = warnsTime.substring(6, 8);//小时
+                            var sMinute = warnsTime.substring(8, 10);//分钟
+                            var sSecond = warnsTime.substring(10, 12);//秒
+                            var sMiao = sHour*3600 + sMinute*60 + sSecond*1;
                             
                             goodListHtml += '<li class="main_content_li">';
                             goodListHtml += '<span class="main_content_a_left">';
@@ -220,7 +289,13 @@ function placard(page,urlStatus){
                             goodListHtml += '</span>';
                             goodListHtml += '<span class="y_purse">'+(detailsRst[i].bonus/100).toFixed(2)+' </span>';
                             goodListHtml += '<span class="main_content_a_ash">';
-                            goodListHtml += '<span class="m_c_a_r_grey">'+detailsRst[i].category_name+'<i class="just_now">'+warnTime+' </i></span>';
+                            if( miao-sMiao<=3600){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
+                                }else if(miao-sMiao>3600){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">今天</i></span>';
+                                }else if( Month!=sMonth && date!=sDate){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                                }
                             goodListHtml += '<span class="m_c_a_r_ash">';
                             goodListHtml += '<span class="m_c_a_r_bottomlefts">任务已过期</span>';
                             goodListHtml += ' </span>';
@@ -322,8 +397,8 @@ function placard(page,urlStatus){
     
                 }
 
-            }else{
-                $('#orderContent').html('<span class="information">全部中还没有信息</span>');
+            }else if(data.success == 3){
+                $('#orderContent ul').html('<span class="information" id="box">还没有信息</span>');
             }
            
           
@@ -367,8 +442,6 @@ function placard(page,urlStatus){
                     _wrapper[0].addEventListener('touchmove',function (e){e.preventDefault();},false);
                     function _init(thiObj){
                         var $this_obj=thiObj;
-                        // var duibi=_opt.duibiScreenWidth*_win_width/10,this_index=$this_obj.index(),this_off_left=$this_obj.offset().left,this_pos_left=$this_obj.position().left,this_width=$this_obj.width(),this_prev_width=$this_obj.prev('li').width(),this_next_width=$this_obj.next('li').width();
-                        // var this_off_right=_win_width-this_off_left-this_width;
                         if(_scroller_w+2>_wrapper_width){
                             if(_opt.fingerClick==1){
                                 if(this_index==1){
@@ -416,7 +489,8 @@ function placard(page,urlStatus){
     
 }
  //点击进行中
- $('#conduct').click(function(){  
+ $('#conduct').click(function(){
+    $('#orderContent ul').html('');
     $.ajax({
         url: domain_name_url + "/task",
         type: "GET",
@@ -444,23 +518,27 @@ function placard(page,urlStatus){
                        
                              //获取开始时间
                              var startTime = detailsRst[i].create_time;
+                              // 开始时间的总秒数
+                              var startTimetm = "20" + startTime.substring(0, 2) + "/" + startTime.substring(2, 4) + "/" + startTime.substring(4, 6) + " " + startTime.substring(6, 8) + ":" + startTime.substring(8, 10) + ":" + startTime.substring(10, 12);
+                              var startDate = new Date(startTimetm).getTime();
+        
                              id = detailsRst[i].id;
-                             
-                             // 开始时间的总秒数
-                             var startTimetm = "20" + startTime.substring(0, 2) + "/" + startTime.substring(2, 4) + "/" + startTime.substring(4, 6) + " " + startTime.substring(6, 8) + ":" + startTime.substring(8, 10) + ":" + startTime.substring(10, 12);
-                             var startDate = new Date(startTimetm).getTime();
-                              //   //获取开始创建时间
-                              var warnsTime  = detailsRst[i].task_create_time;
-                              var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
+                            //获取开始创建时间
+                            var warnsTime = detailsRst[i].task_create_time;
+                            var richTime = "20"+warnsTime.substring(0, 2) + "/" + warnsTime.substring(2, 4) + "/" + warnsTime.substring(4, 6) + " " + warnsTime.substring(6, 8) + ":" + warnsTime.substring(8, 10) + ":" + warnsTime.substring(10, 12);
+                            var expiryMonth = warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6)
+                            var sMonth = warnsTime.substring(2, 4);//月份
+                            var sDate = warnsTime.substring(4, 6);//日
+                            var sHour = warnsTime.substring(6, 8);//小时
+                            var sMinute = warnsTime.substring(8, 10);//分钟
+                            var sSecond = warnsTime.substring(10, 12);//秒
+                            var sMiao = sHour*3600 + sMinute*60 + sSecond*1;
                              // 获取结束时间
                              var endTime = detailsRst[i].create_end_time;
                              // 结束时间的总秒数
                              sekillEndTime = "20" + endTime.substring(0, 2) + "/" + endTime.substring(2, 4) + "/" + endTime.substring(4, 6) + " " + endTime.substring(6, 8) + ":" + endTime.substring(8, 10) + ":" + endTime.substring(10, 12);
                              var endTDate = new Date(sekillEndTime).getTime();
                              
-                             //获取当前时间
-                             var currentDate = new Date();
-                             currentDate = currentDate.getTime();
                              //时间段要注意两种情况一种是刚进来就已经开始倒计时，还有就是到页面还没有倒计时，就用结束的时间减去当前的时间
                              var totalSecond;
                              if (startDate < currentDate  && currentDate <= endTDate) {//已经在倒计时了
@@ -481,7 +559,7 @@ function placard(page,urlStatus){
                                         url_type:"task"
                                     },
                                     success: function(data) {
-                                         $('#orderContent ul').html('');
+                                         
                                     }
                                 })
                                 
@@ -493,7 +571,13 @@ function placard(page,urlStatus){
                             goodListHtml += '</span>';
                             goodListHtml += '<span class="p_purse">'+(detailsRst[i].bonus/100).toFixed(2)+'</span>';
                             goodListHtml += '<span class="main_content_a_right">';
-                            goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+' <i class="just_now">刚刚 </i></span>';
+                            if( miao-sMiao<=3600){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
+                                }else if(miao-sMiao>3600){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">今天</i></span>';
+                                }else if( Month!=sMonth && date!=sDate){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                                }
                             goodListHtml += '<span class="m_c_a_r_bottom">';
                             goodListHtml += '<span class="m_c_a_r_bottomleft" id="drew"></span>';
                             goodListHtml += '</span>';
@@ -503,88 +587,7 @@ function placard(page,urlStatus){
                             goodListHtml += '</a>';
                             goodListHtml += '</li>';
                         }
-                        if(detailsRst[i].state == 3){//审核中
-                             //   //获取开始创建时间
-                             var warnsTime  = detailsRst[i].task_create_time;
-                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
-                            goodListHtml += '<span class="main_content_a_left">';
-                            goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
-                            goodListHtml += '</span>';
-                            goodListHtml += '<span class="p_purse">'+(detailsRst[i].bonus/100).toFixed(2)+'</span>';
-                            goodListHtml += '<span class="main_content_a_right">';
-                            goodListHtml += ' <span class="m_c_a_r_top">'+detailsRst[i].category_name+' <i class="just_now">'+warnTime+'</i></span>';
-                            goodListHtml += '<span class="m_c_a_r_bottom">';
-                            goodListHtml += '<span class="m_c_a_r_orange">计1-23小时，超时自动到账</span>';
-                            goodListHtml += '</span>';
-                            goodListHtml += '</span>';
-                            goodListHtml += '<a href="#" class="main_content_a">';
-                            goodListHtml += ' <div class="aerea">审核中</div>';
-                            goodListHtml += '</a>';
-                            goodListHtml += '</li>';
-                        }
-                         if(detailsRst[i].state == 4){//审核失败
-                             //   //获取开始创建时间
-                             var warnsTime  = detailsRst[i].task_create_time;
-                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
-                            
-                            goodListHtml += '<li class="main_content_li"  id="task_apply">';
-                            goodListHtml += '<span class="main_content_a_left">';
-                            goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
-                            goodListHtml += '</span>';
-                            goodListHtml += '<span class="p_purse">'+(detailsRst[i].bonus/100).toFixed(2)+'</span>';
-                            goodListHtml += '<span class="main_content_a_right">';
-                            goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+warnTime+'</i></span>';
-                            goodListHtml += '<span class="m_c_a_r_bottom">';
-                            goodListHtml += '<span class="m_c_a_r_red">审核失败</span>';
-                            goodListHtml += '</span>';
-                            goodListHtml += '</span>';
-                            goodListHtml += '<div class="bonus">查看</div>';
-                            goodListHtml += '</li>';
-                        }
-                        if(detailsRst[i].state == 5){//已完成
-                             //   //获取开始创建时间
-                             var warnsTime  = detailsRst[i].task_create_time;
-                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
-                            
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
-                            goodListHtml += '<span class="main_content_a_left">';
-                            goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
-                            goodListHtml += '</span>';
-                            goodListHtml += '<span class="p_purse">'+(detailsRst[i].bonus/100).toFixed(2)+'</span>';
-                            goodListHtml += '<span class="main_content_a_right">';
-                            goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+warnTime+'</i></span>';
-                            goodListHtml += '<span class="m_c_a_r_bottom">';
-                            goodListHtml += ' <span class="m_c_a_r_green">获得奖励  '+(detailsRst[i].bonus/100).toFixed(2)+'元</span>';
-                            goodListHtml += '</span>';
-                            goodListHtml += '</span>';
-                            goodListHtml += '<div class="main_content_a">';
-                            goodListHtml += '<div class="creoline">已完成</div>';
-                            goodListHtml += '</div>';
-                            goodListHtml += '</li>';
-                        }
-                        if(detailsRst[i].state == 6){//已过期
-                             //   //获取开始创建时间
-                             var warnsTime  = detailsRst[i].task_create_time;
-                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
-                            
-                            goodListHtml += '<li class="main_content_li">';
-                            goodListHtml += '<span class="main_content_a_left">';
-                            goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/ash.png">';
-                            goodListHtml += '</span>';
-                            goodListHtml += '<span class="y_purse">'+(detailsRst[i].bonus/100).toFixed(2)+' </span>';
-                            goodListHtml += '<span class="main_content_a_ash">';
-                            goodListHtml += '<span class="m_c_a_r_grey">'+detailsRst[i].category_name+'<i class="just_now">'+warnTime+' </i></span>';
-                            goodListHtml += '<span class="m_c_a_r_ash">';
-                            goodListHtml += '<span class="m_c_a_r_bottomlefts">任务已过期</span>';
-                            goodListHtml += ' </span>';
-                            goodListHtml += '</span>';
-                            goodListHtml += '<div class="main_content_a">';
-                            goodListHtml += ' <div class="overdue">已过期</div>';
-                            goodListHtml += ' </div>';
-                            goodListHtml += ' </li>'; 
-                        }
-        
+                    
                     }
                     if(12*page>12){
                         $('#orderContent ul').append(goodListHtml);
@@ -674,8 +677,8 @@ function placard(page,urlStatus){
     
                 }
 
-            }else{
-                $('#orderContent').html('<span class="information">进行中还没有信息</span>');
+            }else if(data.success == 3){
+                $('#orderContent ul').html('<span class="information">还没有信息</span>');
             }
            
             // ask(1,urlStatus);
@@ -718,8 +721,6 @@ function placard(page,urlStatus){
                     _wrapper[0].addEventListener('touchmove',function (e){e.preventDefault();},false);
                     function _init(thiObj){
                         var $this_obj=thiObj;
-                        // var duibi=_opt.duibiScreenWidth*_win_width/10,this_index=$this_obj.index(),this_off_left=$this_obj.offset().left,this_pos_left=$this_obj.position().left,this_width=$this_obj.width(),this_prev_width=$this_obj.prev('li').width(),this_next_width=$this_obj.next('li').width();
-                        // var this_off_right=_win_width-this_off_left-this_width;
                         if(_scroller_w+2>_wrapper_width){
                             if(_opt.fingerClick==1){
                                 if(this_index==1){
@@ -766,6 +767,7 @@ function placard(page,urlStatus){
 
  //点击待审核
  $('#toAudit').click(function(){  
+    $('#orderContent ul').html('');
     $.ajax({
         url: domain_name_url + "/task",
         type: "GET",
@@ -789,79 +791,31 @@ function placard(page,urlStatus){
                 var goodListHtml = '';
                 if(detailsRst.length!=0){
                     for(var i= 0 ; i<detailsRst.length;i++){
-                      if(detailsRst[i].state == 1){ //进行中
-                             //获取开始时间
-                             var startTime = detailsRst[i].create_time;
-                             id = detailsRst[i].id;
-                              //   //获取开始创建时间
-                              var warnsTime  = detailsRst[i].task_create_time;
-                              var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
-                             // 开始时间的总秒数
-                             var startTimetm = "20" + startTime.substring(0, 2) + "/" + startTime.substring(2, 4) + "/" + startTime.substring(4, 6) + " " + startTime.substring(6, 8) + ":" + startTime.substring(8, 10) + ":" + startTime.substring(10, 12);
-                             var startDate = new Date(startTimetm).getTime();
-                             
-                             // 获取结束时间
-                             var endTime = detailsRst[i].create_end_time;
-                             // 结束时间的总秒数
-                             sekillEndTime = "20" + endTime.substring(0, 2) + "/" + endTime.substring(2, 4) + "/" + endTime.substring(4, 6) + " " + endTime.substring(6, 8) + ":" + endTime.substring(8, 10) + ":" + endTime.substring(10, 12);
-                             var endTDate = new Date(sekillEndTime).getTime();
-                             
-                             //获取当前时间
-                             var currentDate = new Date();
-                             currentDate = currentDate.getTime();
-                             //时间段要注意两种情况一种是刚进来就已经开始倒计时，还有就是到页面还没有倒计时，就用结束的时间减去当前的时间
-                             var totalSecond;
-                             if (startDate < currentDate  && currentDate <= endTDate) {//已经在倒计时了
-                                 totalSecond = parseInt((endTDate - currentDate) / 1000);
-                                 setTimeout(function () {//已经在倒计时了
-                                     countdown(totalSecond)
-                                     },1000)
-                             } 
-                             if (currentDate > endTDate) {//调接口
-                                $.ajax({
-                                    url: domain_name_url + "/task",
-                                    type: "GET",
-                                    dataType: "jsonp", //指定服务器返回的数据类型
-                                    data: {
-                                        method: 'delTask',
-                                        userId: 4599,
-                                        task_id:id,
-                                        url_type:"task"
-                                    },
-                                    success: function(data) {
-                                         $('#orderContent ul').html('');
-                                    }
-                                })
-                                
-                            } 
-                            
+                 
+                        if(detailsRst[i].state == 3){//待审核中
+                           //获取开始创建时间
+                            var warnsTime = detailsRst[i].task_create_time;
+                            var richTime = "20"+warnsTime.substring(0, 2) + "/" + warnsTime.substring(2, 4) + "/" + warnsTime.substring(4, 6) + " " + warnsTime.substring(6, 8) + ":" + warnsTime.substring(8, 10) + ":" + warnsTime.substring(10, 12);
+                            var expiryMonth = warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6)
+                            var sMonth = warnsTime.substring(2, 4);//月份
+                            var sDate = warnsTime.substring(4, 6);//日
+                            var sHour = warnsTime.substring(6, 8);//小时
+                            var sMinute = warnsTime.substring(8, 10);//分钟
+                            var sSecond = warnsTime.substring(10, 12);//秒
+                            var sMiao = sHour*3600 + sMinute*60 + sSecond*1;
                             goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
                             goodListHtml += '<span class="p_purse">'+(detailsRst[i].bonus/100).toFixed(2)+'</span>';
                             goodListHtml += '<span class="main_content_a_right">';
-                            goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+' <i class="just_now">刚刚 </i></span>';
-                            goodListHtml += '<span class="m_c_a_r_bottom">';
-                            goodListHtml += '<span class="m_c_a_r_bottomleft" id="drew"></span>';
-                            goodListHtml += '</span>';
-                            goodListHtml += '</span>';
-                            goodListHtml += '<a href="#" class="main_content_a">';
-                            goodListHtml += '<div class="particulars">进行中</div>';
-                            goodListHtml += '</a>';
-                            goodListHtml += '</li>';
-                        }
-                        if(detailsRst[i].state == 3){//审核中
-                             //   //获取开始创建时间
-                             var warnsTime  = detailsRst[i].task_create_time;
-                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
-                            goodListHtml += '<span class="main_content_a_left">';
-                            goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
-                            goodListHtml += '</span>';
-                            goodListHtml += '<span class="p_purse">'+(detailsRst[i].bonus/100).toFixed(2)+'</span>';
-                            goodListHtml += '<span class="main_content_a_right">';
-                            goodListHtml += ' <span class="m_c_a_r_top">'+detailsRst[i].category_name+' <i class="just_now">'+warnTime+'</i></span>';
+                            if( miao-sMiao<=3600){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
+                                }else if(miao-sMiao>3600){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">今天</i></span>';
+                                }else if( Month!=sMonth && date!=sDate){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                                }
                             goodListHtml += '<span class="m_c_a_r_bottom">';
                             goodListHtml += '<span class="m_c_a_r_orange">计1-23小时，超时自动到账</span>';
                             goodListHtml += '</span>';
@@ -871,65 +825,6 @@ function placard(page,urlStatus){
                             goodListHtml += '</a>';
                             goodListHtml += '</li>';
                         }
-                         if(detailsRst[i].state == 4){//审核失败
-                             //   //获取开始创建时间
-                             var warnsTime  = detailsRst[i].task_create_time;
-                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
-                            goodListHtml += '<li class="main_content_li" id="task_apply">';
-                            goodListHtml += '<span class="main_content_a_left">';
-                            goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
-                            goodListHtml += '</span>';
-                            goodListHtml += '<span class="p_purse">'+(detailsRst[i].bonus/100).toFixed(2)+'</span>';
-                            goodListHtml += '<span class="main_content_a_right">';
-                            goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+warnTime+'</i></span>';
-                            goodListHtml += '<span class="m_c_a_r_bottom">';
-                            goodListHtml += '<span class="m_c_a_r_red">审核失败</span>';
-                            goodListHtml += '</span>';
-                            goodListHtml += '</span>';
-                            goodListHtml += '<div class="bonus">查看</div>';
-                            goodListHtml += '</li>';
-                        }
-                        if(detailsRst[i].state == 5){//已完成
-                             //   //获取开始创建时间
-                             var warnsTime  = detailsRst[i].task_create_time;
-                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
-                            goodListHtml += '<span class="main_content_a_left">';
-                            goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
-                            goodListHtml += '</span>';
-                            goodListHtml += '<span class="p_purse">'+(detailsRst[i].bonus/100).toFixed(2)+'</span>';
-                            goodListHtml += '<span class="main_content_a_right">';
-                            goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+warnTime+'</i></span>';
-                            goodListHtml += '<span class="m_c_a_r_bottom">';
-                            goodListHtml += ' <span class="m_c_a_r_green">获得奖励  '+(detailsRst[i].bonus/100).toFixed(2)+'元</span>';
-                            goodListHtml += '</span>';
-                            goodListHtml += '</span>';
-                            goodListHtml += '<div class="main_content_a">';
-                            goodListHtml += '<div class="creoline">已完成</div>';
-                            goodListHtml += '</div>';
-                            goodListHtml += '</li>';
-                        }
-                        if(detailsRst[i].state == 6){//已过期
-                             //   //获取开始创建时间
-                             var warnsTime  = detailsRst[i].task_create_time;
-                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
-                            goodListHtml += '<li class="main_content_li">';
-                            goodListHtml += '<span class="main_content_a_left">';
-                            goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/ash.png">';
-                            goodListHtml += '</span>';
-                            goodListHtml += '<span class="y_purse">'+(detailsRst[i].bonus/100).toFixed(2)+' </span>';
-                            goodListHtml += '<span class="main_content_a_ash">';
-                            goodListHtml += '<span class="m_c_a_r_grey">'+detailsRst[i].category_name+'<i class="just_now">'+warnTime+' </i></span>';
-                            goodListHtml += '<span class="m_c_a_r_ash">';
-                            goodListHtml += '<span class="m_c_a_r_bottomlefts">任务已过期</span>';
-                            goodListHtml += ' </span>';
-                            goodListHtml += '</span>';
-                            goodListHtml += '<div class="main_content_a">';
-                            goodListHtml += ' <div class="overdue">已过期</div>';
-                            goodListHtml += ' </div>';
-                            goodListHtml += ' </li>'; 
-                        }
-        
                     }
                     if(12*page>12){
                         $('#orderContent ul').append(goodListHtml);
@@ -1019,8 +914,8 @@ function placard(page,urlStatus){
     
                 }
 
-            }else{
-                $('#orderContent').html('<span class="information">待审核中还没有信息</span>');
+            }else if(data.success == 3 ){
+                $('#orderContent ul').html('<span class="information">还没有信息</span>');
             }
             // ask(1,urlStatus);
             $.fn.navbarscroll = function (options) {
@@ -1062,8 +957,6 @@ function placard(page,urlStatus){
                     _wrapper[0].addEventListener('touchmove',function (e){e.preventDefault();},false);
                     function _init(thiObj){
                         var $this_obj=thiObj;
-                        // var duibi=_opt.duibiScreenWidth*_win_width/10,this_index=$this_obj.index(),this_off_left=$this_obj.offset().left,this_pos_left=$this_obj.position().left,this_width=$this_obj.width(),this_prev_width=$this_obj.prev('li').width(),this_next_width=$this_obj.next('li').width();
-                        // var this_off_right=_win_width-this_off_left-this_width;
                         if(_scroller_w+2>_wrapper_width){
                             if(_opt.fingerClick==1){
                                 if(this_index==1){
@@ -1108,7 +1001,8 @@ function placard(page,urlStatus){
 
  })
 //点击已结束
-$('#completed').click(function(){  
+$('#completed').click(function(){ 
+    $('#orderContent ul').html(''); 
     $.ajax({
         url: domain_name_url + "/task",
         type: "GET",
@@ -1129,101 +1023,20 @@ $('#completed').click(function(){
                 var stopTime = jsel.match('.create_end_time', detailsRst);//结束时间
                 var beginTime = jsel.match('.task_create_time', detailsRst);//开始时间
                 var foundTime = jsel.match('.create_time', detailsRst);//用户创建任务开始的时间
-                // var warnsTime = jsel.match('.task_create_time', detailsRst);//年月日
-                // warnTime = warnsTime[i]
-
                 var goodListHtml = '';
                 if(detailsRst.length!=0){
                     for(var i= 0 ; i<detailsRst.length;i++){
-                        if(detailsRst[i].state == 1){ //进行中
-
-                             //获取开始时间
-                             var startTime = detailsRst[i].create_time;
-                             id = detailsRst[i].id;
-                              //   //获取开始创建时间
-                              var warnsTime  = detailsRst[i].task_create_time;
-                              var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
-                             // 开始时间的总秒数
-                             var startTimetm = "20" + startTime.substring(0, 2) + "/" + startTime.substring(2, 4) + "/" + startTime.substring(4, 6) + " " + startTime.substring(6, 8) + ":" + startTime.substring(8, 10) + ":" + startTime.substring(10, 12);
-                             var startDate = new Date(startTimetm).getTime();
-                             //   //获取开始创建时间
-                             var warnsTime  = detailsRst[i].task_create_time;
-                             warnTime =  warnTime.substring(2, 4) + "月" + endTime.substring(4, 6);
-                             // 获取结束时间
-                             var endTime = detailsRst[i].create_end_time;
-                             // 结束时间的总秒数
-                             sekillEndTime = "20" + endTime.substring(0, 2) + "/" + endTime.substring(2, 4) + "/" + endTime.substring(4, 6) + " " + endTime.substring(6, 8) + ":" + endTime.substring(8, 10) + ":" + endTime.substring(10, 12);
-                             var endTDate = new Date(sekillEndTime).getTime();
-                             
-                             //获取当前时间
-                             var currentDate = new Date();
-                             currentDate = currentDate.getTime();
-                             //时间段要注意两种情况一种是刚进来就已经开始倒计时，还有就是到页面还没有倒计时，就用结束的时间减去当前的时间
-                             var totalSecond;
-                             if (startDate < currentDate  && currentDate <= endTDate) {//已经在倒计时了
-                                 totalSecond = parseInt((endTDate - currentDate) / 1000);
-                                 setTimeout(function () {//已经在倒计时了
-                                     countdown(totalSecond)
-                                     },1000)
-                             } 
-                             if (currentDate > endTDate) {//调接口
-                                $.ajax({
-                                    url: domain_name_url + "/task",
-                                    type: "GET",
-                                    dataType: "jsonp", //指定服务器返回的数据类型
-                                    data: {
-                                        method: 'delTask',
-                                        userId: 4599,
-                                        task_id:id,
-                                        url_type:"task"
-                                    },
-                                    success: function(data) {
-                                         $('#orderContent ul').html('');
-                                    }
-                                })
-                                
-                            } 
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
-                            goodListHtml += '<span class="main_content_a_left">';
-                            goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
-                            goodListHtml += '</span>';
-                            goodListHtml += '<span class="p_purse">'+(detailsRst[i].bonus/100).toFixed(2)+'</span>';
-                            goodListHtml += '<span class="main_content_a_right">';
-                            goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+' <i class="just_now">刚刚 </i></span>';
-                            goodListHtml += '<span class="m_c_a_r_bottom">';
-                            goodListHtml += '<span class="m_c_a_r_bottomleft" id="drew"></span>';
-                            goodListHtml += '</span>';
-                            goodListHtml += '</span>';
-                            goodListHtml += '<a href="#" class="main_content_a">';
-                            goodListHtml += '<div class="particulars">进行中</div>';
-                            goodListHtml += '</a>';
-                            goodListHtml += '</li>';
-                        }
-                        if(detailsRst[i].state == 3){//审核中
-                             //   //获取开始创建时间
-                             var warnsTime  = detailsRst[i].task_create_time;
-                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
-
-                            goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
-                            goodListHtml += '<span class="main_content_a_left">';
-                            goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
-                            goodListHtml += '</span>';
-                            goodListHtml += '<span class="p_purse">'+(detailsRst[i].bonus/100).toFixed(2)+'</span>';
-                            goodListHtml += '<span class="main_content_a_right">';
-                            goodListHtml += ' <span class="m_c_a_r_top">'+detailsRst[i].category_name+' <i class="just_now">'+warnTime+'</i></span>';
-                            goodListHtml += '<span class="m_c_a_r_bottom">';
-                            goodListHtml += '<span class="m_c_a_r_orange">计1-23小时，超时自动到账</span>';
-                            goodListHtml += '</span>';
-                            goodListHtml += '</span>';
-                            goodListHtml += '<a href="#" class="main_content_a">';
-                            goodListHtml += ' <div class="aerea">审核中</div>';
-                            goodListHtml += '</a>';
-                            goodListHtml += '</li>';
-                        }
                          if(detailsRst[i].state == 4){//审核失败
-                             //   //获取开始创建时间
-                             var warnsTime  = detailsRst[i].task_create_time;
-                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
+                            //获取开始创建时间
+                            var warnsTime = detailsRst[i].task_create_time;
+                            var richTime = "20"+warnsTime.substring(0, 2) + "/" + warnsTime.substring(2, 4) + "/" + warnsTime.substring(4, 6) + " " + warnsTime.substring(6, 8) + ":" + warnsTime.substring(8, 10) + ":" + warnsTime.substring(10, 12);
+                            var expiryMonth = warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6)
+                            var sMonth = warnsTime.substring(2, 4);//月份
+                            var sDate = warnsTime.substring(4, 6);//日
+                            var sHour = warnsTime.substring(6, 8);//小时
+                            var sMinute = warnsTime.substring(8, 10);//分钟
+                            var sSecond = warnsTime.substring(10, 12);//秒
+                            var sMiao = sHour*3600 + sMinute*60 + sSecond*1;
                             
                             goodListHtml += '<li class="main_content_li"  id="task_apply">';
                             goodListHtml += '<span class="main_content_a_left">';
@@ -1231,7 +1044,13 @@ $('#completed').click(function(){
                             goodListHtml += '</span>';
                             goodListHtml += '<span class="p_purse">'+(detailsRst[i].bonus/100).toFixed(2)+'</span>';
                             goodListHtml += '<span class="main_content_a_right">';
-                            goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+warnTime+'</i></span>';
+                            if( miao-sMiao<=3600){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
+                                }else if(miao-sMiao>3600){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">今天</i></span>';
+                                }else if( Month!=sMonth && date!=sDate){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                                }
                             goodListHtml += '<span class="m_c_a_r_bottom">';
                             goodListHtml += '<span class="m_c_a_r_red">审核失败</span>';
                             goodListHtml += '</span>';
@@ -1240,9 +1059,16 @@ $('#completed').click(function(){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 5){//已完成
-                             //   //获取开始创建时间
-                             var warnsTime  = detailsRst[i].task_create_time;
-                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
+                           //获取开始创建时间
+                            var warnsTime = detailsRst[i].task_create_time;
+                            var richTime = "20"+warnsTime.substring(0, 2) + "/" + warnsTime.substring(2, 4) + "/" + warnsTime.substring(4, 6) + " " + warnsTime.substring(6, 8) + ":" + warnsTime.substring(8, 10) + ":" + warnsTime.substring(10, 12);
+                            var expiryMonth = warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6)
+                            var sMonth = warnsTime.substring(2, 4);//月份
+                            var sDate = warnsTime.substring(4, 6);//日
+                            var sHour = warnsTime.substring(6, 8);//小时
+                            var sMinute = warnsTime.substring(8, 10);//分钟
+                            var sSecond = warnsTime.substring(10, 12);//秒
+                            var sMiao = sHour*3600 + sMinute*60 + sSecond*1;
                             
                             goodListHtml += '<li class="main_content_li mtw_k" data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+'>';
                             goodListHtml += '<span class="main_content_a_left">';
@@ -1250,7 +1076,13 @@ $('#completed').click(function(){
                             goodListHtml += '</span>';
                             goodListHtml += '<span class="p_purse">'+(detailsRst[i].bonus/100).toFixed(2)+'</span>';
                             goodListHtml += '<span class="main_content_a_right">';
-                            goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+warnTime+'</i></span>';
+                            if( miao-sMiao<=3600){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
+                                }else if(miao-sMiao>3600){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">今天</i></span>';
+                                }else if( Month!=sMonth && date!=sDate){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                                }    
                             goodListHtml += '<span class="m_c_a_r_bottom">';
                             goodListHtml += ' <span class="m_c_a_r_green">获得奖励  '+(detailsRst[i].bonus/100).toFixed(2)+'元</span>';
                             goodListHtml += '</span>';
@@ -1261,9 +1093,16 @@ $('#completed').click(function(){
                             goodListHtml += '</li>';
                         }
                         if(detailsRst[i].state == 6){//已过期
-                             //   //获取开始创建时间
-                             var warnsTime  = detailsRst[i].task_create_time;
-                             var  warnTime =  warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6);
+                             //获取开始创建时间
+                            var warnsTime = detailsRst[i].task_create_time;
+                            var richTime = "20"+warnsTime.substring(0, 2) + "/" + warnsTime.substring(2, 4) + "/" + warnsTime.substring(4, 6) + " " + warnsTime.substring(6, 8) + ":" + warnsTime.substring(8, 10) + ":" + warnsTime.substring(10, 12);
+                            var expiryMonth = warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6)
+                            var sMonth = warnsTime.substring(2, 4);//月份
+                            var sDate = warnsTime.substring(4, 6);//日
+                            var sHour = warnsTime.substring(6, 8);//小时
+                            var sMinute = warnsTime.substring(8, 10);//分钟
+                            var sSecond = warnsTime.substring(10, 12);//秒
+                            var sMiao = sHour*3600 + sMinute*60 + sSecond*1;
                             
                             goodListHtml += '<li class="main_content_li">';
                             goodListHtml += '<span class="main_content_a_left">';
@@ -1271,7 +1110,13 @@ $('#completed').click(function(){
                             goodListHtml += '</span>';
                             goodListHtml += '<span class="y_purse">'+(detailsRst[i].bonus/100).toFixed(2)+' </span>';
                             goodListHtml += '<span class="main_content_a_ash">';
-                            goodListHtml += '<span class="m_c_a_r_grey">'+detailsRst[i].category_name+'<i class="just_now">'+warnTime+' </i></span>';
+                            if( miao-sMiao<=3600){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
+                                }else if(miao-sMiao>3600){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">今天</i></span>';
+                                }else if( Month!=sMonth && date!=sDate){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                                }
                             goodListHtml += '<span class="m_c_a_r_ash">';
                             goodListHtml += '<span class="m_c_a_r_bottomlefts">任务已过期</span>';
                             goodListHtml += ' </span>';
@@ -1370,8 +1215,8 @@ $('#completed').click(function(){
     
                 }
 
-            }else{
-                $('#orderContent').html('<span class="information">已结束中还没有信息</span>');
+            }else if(data.success == 3){
+                $('#orderContent ul').html('<span class="information">还没有信息</span>');
             }
             // ask(1,urlStatus);
             $.fn.navbarscroll = function (options) {
