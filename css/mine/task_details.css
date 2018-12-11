@@ -96,6 +96,10 @@
 .sample_picture{
 	width: 100%;
 	margin-top: .8rem;
+	padding: 0 .26rem;
+}
+.sample_picture ul{
+	padding: 0;
 	overflow: hidden;
 }
 .sample_picture li{
@@ -131,6 +135,69 @@
 	width: 100%;
 	height: .2rem;
 	background: #f3f4f8;
+}
+.task_hunter{
+	width: 100%;
+	height: auto;
+}
+.hunter_top{
+	width: 100%;
+	height: 1.2rem;
+	text-align: center;
+}
+.hunter_sj{
+	font-size: .28rem;
+	color: #333;
+	line-height: .8rem;
+}
+.hunter_infor{
+	font-size: .24rem;
+	color: #fd4848;
+}
+.myscroll{
+	width: 100%;
+	height: 6rem;
+	margin: 0 auto;
+	font-size: .26rem;
+	overflow: hidden;
+}
+.myscroll ul{
+	padding: 0;
+}
+.myscroll li{
+	width: 100%;
+	height: 1.1rem;
+	line-height: 1.1rem;
+	border-top:.01rem solid #ebebeb;
+	overflow: hidden;
+}
+.myscroll_left{
+	float: left;
+	width: 75%;
+	padding-left: .26rem;
+}
+.myscroll_left img{
+	width: .66rem;
+	height: .66rem;
+	border-radius: 50%;
+	vertical-align: middle;
+}
+.hunter_name{
+	width: 25%;
+	color: #666;
+	margin-left: .3rem;
+}
+.hunter_money{
+	width: 25%;
+	color: #fd4848;
+	margin-left: .7rem;
+}
+.myscroll_right{
+	float: right;
+	width: 25%;
+	color: #666;
+	padding-right: .26rem;
+	text-align: right;
 }
 .task_btn{
 	width: 100%;
