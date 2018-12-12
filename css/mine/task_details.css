@@ -294,3 +294,13 @@
 	text-align: center;
 	line-height: .8rem;
 }
+#modal_issue .modal-title{
+	height: 1rem;
+	line-height: 1rem;
+}
+#modal_issue .modal-body{
+	height: .5rem;
+	line-height: .5rem;
+	text-align: center;
+	margin-top: 0;
+}

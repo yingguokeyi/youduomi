@@ -25,7 +25,7 @@
 			<div class="main_top">
 				<header>
 					<div class="title_top">
-						<a href="" class="title_top_first">
+						<a class="title_top_first">
 							<img src="../../image/mine/return.png" class="hea_img" />
 						</a>
 						<span class="title_top_center" style="font-size:.3rem;">任务开始</span>
@@ -33,7 +33,7 @@
 				</header>
 				<div class="awards_show">
 					<span class="quest_rewards">任务奖励:<i></i></span>
-					<span class="time_remaining">剩余时间 <i>01:20:10</i></span>
+					<span class="time_remaining">剩余时间 <i id="drew"></i></span>
 				</div>
 				<div class="step">
 					<p class="step_title">步骤一:<button type="button">点击去做任务</button></p>
@@ -41,7 +41,46 @@
 				</div>
 			</div>
 			<div class="main_middle">
-				<button type="button" onclick="window.location='start_taskSecond.html'">下一步</button>
+				<button type="button">下一步</button>
+			</div>
+		</div>
+		<!-- 点击返回上一个页面出现弹框 -->
+		<div class="warm" style="display: none;">
+			<div class="warm_title">
+				<h4>提示</h4>
+				<p>将离开任务页面，任务领取后请在两小时内完成，否则视为作废。</p>
+			</div>
+			<div class="warm_choose">
+				<a class="warm_login">离开</a>
+				<a class="warm_cancel">继续任务</a>
+			</div>
+		</div>
+		<!-- 任务失败模态框 -->
+		<div id="modal_no" class="modal">
+			<div class="modal-content">
+				<div class="modal-title">
+					<span>任务失败</span>
+				</div>
+				<div class="modal-body">
+					未在指定时间内完成任务，请重新接取任务
+				</div>
+				<footer class="modal-footer">
+					<button id="no_affirm" type="button">确定</button>
+				</footer>
+			</div>
+		</div>
+		<!-- 任务过期模态框 -->
+		<div id="modal_issue" class="modal">
+			<div class="modal-content">
+				<div class="modal-title">
+					<span>任务过期</span>
+				</div>
+				<div class="modal-body">
+					任务发布已过期，任务已取消
+				</div>
+				<footer class="modal-footer">
+					<button id="affirm" type="button" onclick="window.location='../makeEveryDay/myTask.html'">确定</button>
+				</footer>
 			</div>
 		</div>
 	</body>
