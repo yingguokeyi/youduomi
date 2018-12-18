@@ -38,7 +38,7 @@ $(function(){
         		var remark = data.result.rs[0].result.result.rs[0].remark;//任务说明
         		var link = data.result.rs[0].result.result.rs[0].link_adress;//任务链接
         		$('.quest_rewards i').html(smoney+'元');
-        		$('.se_cont').html(remark);
+        		$('.se_cont').html('任务说明:'+remark);
         		//获取开始时间
         		var trs = data.result.rs[0].result.result.rs[0];
         		var stime = trs.create_date;

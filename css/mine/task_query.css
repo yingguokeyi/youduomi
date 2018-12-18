@@ -79,11 +79,19 @@
 .query_list{
 	width: 100%;
 	height: auto;
-	background: #fff;
 	margin-top: .2rem;
+}
+.query_no{
+	text-align: center;
+	margin-top: 1rem;
+	color: #666;
+	font-size: .3rem;
+	display: none;
 }
 .query_list ul{
 	width: 100%;
+	background: #fff;
+	display: none;
 }
 .query_list ul li{
 	width: 100%;

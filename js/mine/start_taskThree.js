@@ -253,7 +253,6 @@ function receiptImg3() {
         }
     });
 }
-console.log(myArray);
 $('#sub_task').click(function(){
 	$('#modal_start').show();
 	$('.close').click(function(){
