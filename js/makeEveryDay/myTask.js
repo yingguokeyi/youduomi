@@ -680,8 +680,7 @@ function placard(page,urlStatus){
             }else if(data.success == 3){
                 $('#orderContent ul').html('<span class="information">还没有信息</span>');
             }
-           
-            // ask(1,urlStatus);
+          
             $.fn.navbarscroll = function (options) {
                 //各种属性、参数
                 var _defaults = {
@@ -1014,6 +1013,7 @@ $('#completed').click(function(){
             url_type:"task"
         },
         success: function(data) {
+            console.log(data,'已结束')
             if(data.success==1){
                 var detailsRst = data.result.rs[0].result;//获取的内容
                 var runId = jsel.match('.id', detailsRst);//获得id
@@ -1333,7 +1333,7 @@ window.onscroll = function(){
 	if(getScrollTop() + getClientHeight() == getScrollHeight()) {
 		setTimeout(function () {
             page++;
-            // placard(12*page+1,urlStatus);//全部
+            //  placard(12*page+1,urlStatus);//全部
 
 		},0)
 	}
@@ -1376,7 +1376,7 @@ function countdown (totalSecond){
         totalSecond--; 
 	    if (totalSecond == 0) {
             setTimeout(function tt(){
-                document.getElementById("drew").innerHTML = '已领取    ' +  ' 剩余时间'+'：'+'00'+':'+'00'+':'+'00';
+                 document.getElementById("drew").innerHTML = '已领取    ' +  ' 剩余时间'+'：'+'00'+':'+'00'+':'+'00';
                 clearInterval(that.interval); 
             },1000)
             $.ajax({
