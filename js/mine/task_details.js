@@ -8,7 +8,7 @@ $(function(){
         dataType: "jsonp", //指定服务器返回的数据类型
         data: {
             method: 'getUserTaskInfo',
-            userId: 4599,
+            userId: 4623,
             taskId:uri,
             url_type:"task"
         },
@@ -23,6 +23,7 @@ $(function(){
 				var startTime = rs.create_start_time;//开始时间
 				var endTime = rs.create_end_time;//结束时间
 				var taskEndTime = rs.task_end_time;//截止日期
+				var remark = rs.remark;
 				sStorage = window.localStorage; //本地存题目
 				sStorage.state = situation;
                 sStorage.money = dough;
@@ -76,6 +77,7 @@ $(function(){
 				$('.top_money').html((dough/100).toFixed(2));//奖励钱
 				$('.expiration_date').html(taskTime);//截止日期
     			$('.top_title').html(title);//标题
+    			$('#task_title').html('任务说明:'+remark)
 			    // 开始时间的总秒数
 			    var startTimetm = "20" + startTime.substring(0, 2) + "/" + startTime.substring(2, 4) + "/" + startTime.substring(4, 6) + " " + startTime.substring(6, 8) + ":" + startTime.substring(8, 10) + ":" + startTime.substring(10, 12);
 			    var startDate = new Date(startTimetm).getTime();
@@ -184,12 +186,13 @@ $(function(){
         		var imgList='';
         		var arr1 = [];
         		for(var i=0;i<img.length;i++){
-        			imgList += '<li><img src='+img[i].image+' /></li>';
+        			imgList += '<img src='+img[i].image+' />';
         			arr1.push(img[i].image);
         		}
-        		$('.sample_picture ul').html(imgList);
+        		$('.sample_picture #picOne').html(imgList);
         		sStorage = window.localStorage; //本地存题目
 				sStorage.sArr1 = arr1;
+				seaImg();
         	}
         }
     })
@@ -232,5 +235,64 @@ $(function(){
 	var month = myDate.getMonth()+1; //获取当前月份(0-11,0代表1月)
 	var day = myDate.getDate(); //获取当前日(1-31)
 	$('.myscroll_right').html(month+'月'+day+'日');
+	//点击图片放大
+	function seaImg(){
+	    $(".mask-img").on("click",function(e){
+		    $(".mask-img").css("display","none");
+		    $(".picture").css("display","none");      
+	    })
+	    var imgs = $('.sample_picture img')
+	    var images;
+	    imgs.on('click',function(e){
+		    var father = (e.currentTarget).parentNode; //当前点击图片的父元素
+		    var att = father.attributes.id.nodeValue; //父元素自己的属性id
+		    var image = '#' + att + ' img'
+		    images = $(image)  //jquer获取id下的所有img
+		    $(".mask-img").css("display","block");
+		    $(".picture").css("display","block");     
+		    $(".phone").attr("src",e.currentTarget.src);
+		    if(e.currentTarget == images[0]){
+		    	$(".left").css("display","none");
+		    }else{
+		    	$(".left").css("display","block");
+		    }      
+		    if(e.currentTarget == images[images.length-1]){
+		    	$(".right").css("display","none");       
+		    }else{
+		    	$(".right").css("display","block");      
+		    }
+	    })
+	    //左点击事件，当图片为第一张的时候左边的箭头点击图片隐藏
+	    $(".left").on("click",function(){ 
+	    	var imgSrc = $(".phone").attr("src");
+	    	$(".right").css("display","block");    
+	    	for(var i = 0 ; i<images.length; i++){   
+	    		if(imgSrc == images[i].src){
+	    			if(imgSrc == images[1].src){
+	    				$(".left").css("display","none");
+	    			}
+		    		var j = i;
+				    $(".phone").attr("src",images[j-1].src);
+			    }
+	   
+	    	}
+	    })
+      　//右点击事件， 当图片为最后一张的时候右边箭头点击图片隐藏
+	    $(".right").on("click",function(){
+	    	var imgSrc = $(".phone").attr("src");
+	    	$(".left").css("display","block");     
+		    for(var i = 0 ; i<images.length; i++){       
+			    if(imgSrc == images[i].src){
+				    if(imgSrc == imgs[images.length-2].src){
+				    	$(".right").css("display","none");
+				    }
+				    var j = i;
+				    $(".phone").attr("src",images[j+1].src);
+			    }
+		    }
+	    })
+       
+    }
+    
 })
 

@@ -1,3 +1,5 @@
+// var arr=[];
+var myArray=new Array();
 //下面用于图片上传预览功能
 function setImagePreview1(avalue) {
     //input
@@ -19,6 +21,7 @@ function setImagePreview1(avalue) {
             $('.upolad_txt').hide();
             $("#sub_task").removeAttr("disabled");
 			$('#sub_task').css({'background':'#333','color':'#fff'});
+            receiptImg1();
         } else {
             //IE下，使用滤镜
             docObj1.select();
@@ -39,10 +42,48 @@ function setImagePreview1(avalue) {
                 alert("您上传的图片格式不正确，请重新选择!");
                 return false;
             }
+            receiptImg1();
             imgObjPreview1.style.display = 'none';
             document.selection.empty();
         }
     return true;
+}
+function receiptImg1() {
+    var formData = new FormData();
+    var img_file = document.getElementById("doc1");
+    var fileObject = img_file.files[0];
+    if(fileObject.size/1024 > 1025){//大于1M，进行压缩上传
+        photoCompress(fileObject, {
+            quality: 0.2
+        }, function(base64Codes){
+            //console.log("压缩后：" + base.length / 1024 + " " + base);
+            var bl = convertBase64UrlToBlob(base64Codes);
+            formData.append("file", bl, "file_"+Date.parse(new Date())+".jpg"); // 文件对象
+            formData.append("url_type","uploadImg");
+        });
+    }else {
+        formData.append("file", fileObject);
+        formData.append("url_type","uploadImg");
+    }
+    $.ajax({
+        url: domain_name_url+"/uploadImg?method=uploadTaskImg",
+        type: "POST",
+        dataType: "json",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            if(data.success==1){
+                var ids1 = data.result.rs[0].result.result.ids[0];
+                myArray.push(ids1);
+                console.log(myArray);
+            }
+            console.log("sendImg",data.result);
+        },
+        error: function (data) {
+            console.log("sendImg",data.result)
+        }
+    });
 }
 function setImagePreview2(avalue) {
     //input
@@ -64,6 +105,7 @@ function setImagePreview2(avalue) {
             $('.upolad_txt').hide();
             $("#sub_task").removeAttr("disabled");
 			$('#sub_task').css({'background':'#333','color':'#fff'});
+            receiptImg2();
         } else {
             //IE下，使用滤镜
             docObj2.select();
@@ -84,10 +126,48 @@ function setImagePreview2(avalue) {
                 alert("您上传的图片格式不正确，请重新选择!");
                 return false;
             }
+            receiptImg2();
             imgObjPreview2.style.display = 'none';
             document.selection.empty();
         }
     return true;
+}
+function receiptImg2() {
+    var formData = new FormData();
+    var img_file = document.getElementById("doc2");
+    var fileObject = img_file.files[0];
+    if(fileObject.size/1024 > 1025){//大于1M，进行压缩上传
+        photoCompress(fileObject, {
+            quality: 0.2
+        }, function(base64Codes){
+            //console.log("压缩后：" + base.length / 1024 + " " + base);
+            var bl = convertBase64UrlToBlob(base64Codes);
+            formData.append("file", bl, "file_"+Date.parse(new Date())+".jpg"); // 文件对象
+            formData.append("url_type","uploadImg");
+        });
+    }else {
+        formData.append("file", fileObject);
+        formData.append("url_type","uploadImg");
+    }
+    $.ajax({
+        url: domain_name_url+"/uploadImg?method=uploadTaskImg",
+        type: "POST",
+        dataType: "json",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            if(data.success==1){
+                var ids2 = data.result.rs[0].result.result.ids[0];
+                myArray.push(ids2);
+                console.log(myArray);
+            }
+            console.log("sendImg",data.result);
+        },
+        error: function (data) {
+            console.log("sendImg",data.result)
+        }
+    });
 }
 function setImagePreview3(avalue) {
     //input
@@ -109,6 +189,7 @@ function setImagePreview3(avalue) {
             $('.upolad_txt').hide();
             $("#sub_task").removeAttr("disabled");
 			$('#sub_task').css({'background':'#333','color':'#fff'});
+            receiptImg3();
         } else {
             //IE下，使用滤镜
             docObj3.select();
@@ -129,16 +210,75 @@ function setImagePreview3(avalue) {
                 alert("您上传的图片格式不正确，请重新选择!");
                 return false;
             }
+            receiptImg3();
             imgObjPreview3.style.display = 'none';
             document.selection.empty();
         }
     return true;
+}
+function receiptImg3() {
+    var formData = new FormData();
+    var img_file = document.getElementById("doc3");
+    var fileObject = img_file.files[0];
+    if(fileObject.size/1024 > 1025){//大于1M，进行压缩上传
+        photoCompress(fileObject, {
+            quality: 0.2
+        }, function(base64Codes){
+            //console.log("压缩后：" + base.length / 1024 + " " + base);
+            var bl = convertBase64UrlToBlob(base64Codes);
+            formData.append("file", bl, "file_"+Date.parse(new Date())+".jpg"); // 文件对象
+            formData.append("url_type","uploadImg");
+        });
+    }else {
+        formData.append("file", fileObject);
+        formData.append("url_type","uploadImg");
+    }
+    $.ajax({
+        url: domain_name_url+"/uploadImg?method=uploadTaskImg",
+        type: "POST",
+        dataType: "json",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            if(data.success==1){
+                var ids3 = data.result.rs[0].result.result.ids[0];
+                myArray.push(ids3);
+                console.log(myArray);
+            }
+            console.log("sendImg",data.result);
+        },
+        error: function (data) {
+            console.log("sendImg",data.result)
+        }
+    });
 }
 $('#sub_task').click(function(){
 	$('#modal_start').show();
 	$('.close').click(function(){
 		$('#modal_start').hide();
 	})
+})
+var uri = localStorage.getItem('uri_goods');//拿到传过来的id
+$('#sure').click(function(){
+    var ids = myArray.join();
+     $.ajax({
+        url: domain_name_url + "/task",
+        type: "GET",
+        dataType: "jsonp", //指定服务器返回的数据类型
+        data: {
+            method: 'submitTask',
+            userId: 4599,
+            taskId:uri,
+            taskImgIds:ids,
+            url_type:"task"
+        },
+        success: function(data) {
+            if(data.success==1){
+                $('#modal_start').hide();
+            }
+        }
+    })    
 })
 $(function(){
     var money = localStorage.getItem('money');//奖励钱

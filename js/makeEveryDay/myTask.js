@@ -39,7 +39,7 @@ function ask(){
         dataType: "jsonp", //指定服务器返回的数据类型
         data: {
             method: 'getUserTask',
-            userId: 4599,
+            userId: 4623,
             status:1,
             url_type:"task"
         },
@@ -76,7 +76,7 @@ function placard(page,urlStatus){
         dataType: "jsonp", //指定服务器返回的数据类型
         data: {
             method: 'getUserTask',
-            userId: 4599,
+            userId: 4623,
             status:1,
             page:page,
             url_type:"task"
@@ -139,7 +139,7 @@ function placard(page,urlStatus){
                                     dataType: "jsonp", //指定服务器返回的数据类型
                                     data: {
                                         method: 'delTask',
-                                        userId: 4599,
+                                        userId: 4623,
                                         task_id:id,
                                         url_type:"task"
                                     },
@@ -497,7 +497,7 @@ function placard(page,urlStatus){
         dataType: "jsonp", //指定服务器返回的数据类型
         data: {
             method: 'getUserTask',
-            userId: 4599,
+            userId: 4623,
             status:2,
             url_type:"task"
         },
@@ -554,7 +554,7 @@ function placard(page,urlStatus){
                                     dataType: "jsonp", //指定服务器返回的数据类型
                                     data: {
                                         method: 'delTask',
-                                        userId: 4599,
+                                        userId: 4623,
                                         task_id:id,
                                         url_type:"task"
                                     },
@@ -773,7 +773,7 @@ function placard(page,urlStatus){
         dataType: "jsonp", //指定服务器返回的数据类型
         data: {
             method: 'getUserTask',
-            userId: 4599,
+            userId: 4623,
             status:3,
             url_type:"task"
         },
@@ -1008,7 +1008,7 @@ $('#completed').click(function(){
         dataType: "jsonp", //指定服务器返回的数据类型
         data: {
             method: 'getUserTask',
-            userId: 4599,
+            userId: 4623,
             status:4,
             url_type:"task"
         },
@@ -1385,7 +1385,7 @@ function countdown (totalSecond){
                 dataType: "jsonp", //指定服务器返回的数据类型
                 data: {
                     method: 'delTask',
-                    userId: 4599,
+                    userId: 4623,
                     task_id:id,
                     url_type:"task"
                 },
