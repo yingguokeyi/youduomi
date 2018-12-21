@@ -13,7 +13,7 @@ var id ='';
             dataType: "jsonp", //指定服务器返回的数据类型
             data: {
                 method: 'getAllTask',
-                userId: 4599,
+                userId: 4623,
                 page:page,
                 url_type:"task"
             },
@@ -134,7 +134,7 @@ var id ='';
                                 dataType: "jsonp", //指定服务器返回的数据类型
                                 data: {
                                     method: 'delTask',
-                                    userId: 4599,
+                                    userId: 4623,
                                     task_id:id,
                                     url_type:"task"
                                 },
@@ -516,7 +516,7 @@ function countdown (totalSecond){
                 dataType: "jsonp", //指定服务器返回的数据类型
                 data: {
                     method: 'delTask',
-                    userId: 4599,
+                    userId: 4623,
                     task_id:id,
                     url_type:"task"
                 },

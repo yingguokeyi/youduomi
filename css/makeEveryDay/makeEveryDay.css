@@ -237,7 +237,7 @@ footer{
     height:1.2rem;
     background: #fff; 
     position:fixed ;
-    bottom: .1rem;
+    bottom: 0;
     left: 0;
 }
 .record {
@@ -247,7 +247,7 @@ footer{
     text-align: center;
     background: #333333;
     margin-left: 0.3rem;
-    margin-top: 0.16rem;
+    margin-top: 0.15rem;
 }
 .record a{
     line-height: 0.88rem;

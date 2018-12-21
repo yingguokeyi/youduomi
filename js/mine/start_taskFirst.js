@@ -27,7 +27,7 @@ $(function(){
         dataType: "jsonp", //指定服务器返回的数据类型
         data: {
             method: 'startTask',
-            userId: 4599,
+            userId: 4623,
             taskId:uri,
             status:state,
             url_type:"task"
@@ -130,7 +130,7 @@ $(function(){
 						        dataType: "jsonp", //指定服务器返回的数据类型
 						        data: {
 						            method: 'upTaskFailStatus',
-						            userId: 4599,
+						            userId: 4623,
 						            taskId:uri,
 						            url_type:"task"
 						        },
