@@ -275,7 +275,7 @@ $('#sure').click(function(){
         },
         success: function(data) {
             if(data.success==1){
-                $('#modal_start').hide();
+                location.href = '../makeEveryDay/makeEveryDay.html';
             }
         }
     })    
