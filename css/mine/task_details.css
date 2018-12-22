@@ -33,11 +33,13 @@
 	height: 100%;
 }
 .top_money{
+	width: 1.12rem;
 	color: #f8c03f;
 	font-size: .26rem;
 	position: absolute;
 	top: .45rem;
-    right: .7rem;
+    right: .4rem;
+    text-align: center;
 }
 .top_txt{
 	width: 75%;

@@ -4,7 +4,7 @@ $(function(){
 	var money = localStorage.getItem('money');//奖励钱
 	var taskEndt = localStorage.getItem('taskEnd');//截止日期
 	var arrimg = localStorage.getItem('sArr1');//图片
-	var arrimgs = arrimg.split(",");
+	
 	$('.title_top_first').click(function(){
 		layer.open({
 			type: 1,
@@ -144,7 +144,7 @@ $(function(){
 					}else if(link==""){
 						location.href = 'start_taskThree.html';
 					}else{
-						location.href = 'start_taskSecond.html';
+						location.href = 'start_taskSecond.html?link=' + link;
 					}
 				})
 				
@@ -155,10 +155,14 @@ $(function(){
         }
     })
     // 图片
-	var imgListHtml = '';
-	for (var i = 0; i < arrimgs.length; i++) {
-		imgListHtml += '<li><img src='+arrimgs[i]+'></li>';
-	};
-	$('.sample_picture').html(imgListHtml);
-	$('.sample_picture li').length<=20;
+    if(arrimg!=null){
+    	var arrimgs = arrimg.split(",");
+    	var imgListHtml = '';
+		for (var i = 0; i < arrimgs.length; i++) {
+			imgListHtml += '<li><img src='+arrimgs[i]+'></li>';
+		};
+		$('.sample_picture').html(imgListHtml);
+		$('.sample_picture li').length<=20;
+    }
+	
 })

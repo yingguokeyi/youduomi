@@ -49,7 +49,7 @@ function ask(){
             var headHtml ='';
             headHtml += '<li>';
             headHtml += '<p>'+headNumber.num+'个</p>';
-            headHtml += '<p>今日任务</p>';
+            headHtml += '<p>领取任务</p>';
             headHtml += '<div class="mid_line"></div>';
             headHtml += '</li>';
             headHtml += '<li>';

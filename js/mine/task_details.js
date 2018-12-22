@@ -182,7 +182,7 @@ $(function(){
         	}
         	// 图片
         	var img = rsImg.img;
-        	if(img.length!=''){
+        	if(img!=undefined){
         		var imgList='';
         		var arr1 = [];
         		for(var i=0;i<img.length;i++){
