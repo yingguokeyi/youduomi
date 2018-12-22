@@ -99,13 +99,14 @@ function placard(){
                 var goodListHtml = '';
                 if(detailsRst.length!=0){
                     for(var i= 0 ; i<detailsRst.length;i++){
+                        id = detailsRst[i].id;
                         if(detailsRst[i].state == 1){//进行中
                              //获取开始时间
                             var startTime = detailsRst[i].create_time;
                              // 开始时间的总秒数
                              var startTimetm = "20" + startTime.substring(0, 2) + "/" + startTime.substring(2, 4) + "/" + startTime.substring(4, 6) + " " + startTime.substring(6, 8) + ":" + startTime.substring(8, 10) + ":" + startTime.substring(10, 12);
                              var startDate = new Date(startTimetm).getTime();
-                            id = detailsRst[i].id;
+                            
                              //获取开始创建时间
                             var warnsTime  = detailsRst[i].task_create_time;
                             var richTime = "20"+warnsTime.substring(0, 2) + "/" + warnsTime.substring(2, 4) + "/" + warnsTime.substring(4, 6) + " " + warnsTime.substring(6, 8) + ":" + warnsTime.substring(8, 10) + ":" + warnsTime.substring(10, 12);
@@ -223,7 +224,7 @@ function placard(){
                             var sSecond = warnsTime.substring(10, 12);//秒
                             var sMiao = sHour*3600 + sMinute*60 + sSecond*1;
                             
-                            goodListHtml += '<li class="main_content_li" id="task_apply">';
+                            goodListHtml += '<li class="main_content_li task_apply" id="task_apply">';
                             goodListHtml += '<span class="main_content_a_left">';
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
@@ -372,8 +373,26 @@ function placard(){
                             $('#modal_help').hide();
                             $('#modal_apply').hide();
                         })
-                        $('#task_apply').click(function(){
+                        $('.task_apply').click(function(){
                             $('#modal_apply').show();
+                            $.ajax({
+                                url: domain_name_url + "/task",
+                                type: "GET",
+                                dataType: "jsonp", //指定服务器返回的数据类型
+                                data: {
+                                    method: 'getTaskFail',
+                                    userId: 4623,
+                                    taskId:id,
+                                    url_type:"task"
+                                },
+                                success: function(data) {
+                                    if(data.success==1){
+                                        var remarks = data.result.rs[0].result.result.rs[0].remarks;
+                                        $('.onec').html(remarks);
+                                    }
+                                }
+                            })
+                            
                         })
                         $('#sure').click(function(){
                             var uri = $(this).data('id');//id
@@ -687,6 +706,20 @@ function placard(){
                             $('#modal_apply').hide();
                         })
                         $('#task_apply').click(function(){
+                            $.ajax({
+                                url: domain_name_url + "/task",
+                                type: "GET",
+                                dataType: "jsonp", //指定服务器返回的数据类型
+                                data: {
+                                    method: 'getTaskFail',
+                                    userId: 4623,
+                                    taskId:id,
+                                    url_type:"task"
+                                },
+                                success: function(data) {
+
+                                }
+                            })
                             $('#modal_apply').show();
                         })
                         $('#sure').click(function(){
@@ -923,7 +956,22 @@ function placard(){
                             $('#modal_apply').hide();
                         })
                         $('#task_apply').click(function(){
+                            $.ajax({
+                                url: domain_name_url + "/task",
+                                type: "GET",
+                                dataType: "jsonp", //指定服务器返回的数据类型
+                                data: {
+                                    method: 'getTaskFail',
+                                    userId: 4623,
+                                    taskId:id,
+                                    url_type:"task"
+                                },
+                                success: function(data) {
+
+                                }
+                            })
                             $('#modal_apply').show();
+                                
                         })
                         $('#sure').click(function(){
                             var uri = $(this).data('id');//id
@@ -1225,6 +1273,20 @@ $('#completed').click(function(){
                             $('#modal_apply').hide();
                         })
                         $('#task_apply').click(function(){
+                            $.ajax({
+                                url: domain_name_url + "/task",
+                                type: "GET",
+                                dataType: "jsonp", //指定服务器返回的数据类型
+                                data: {
+                                    method: 'getTaskFail',
+                                    userId: 4623,
+                                    taskId:id,
+                                    url_type:"task"
+                                },
+                                success: function(data) {
+
+                                }
+                            })
                             $('#modal_apply').show();
                         })
                         $('#sure').click(function(){

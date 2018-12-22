@@ -268,7 +268,7 @@ $('#sure').click(function(){
         dataType: "jsonp", //指定服务器返回的数据类型
         data: {
             method: 'submitTask',
-            userId: 4599,
+            userId: 4623,
             taskId:uri,
             taskImgIds:ids,
             url_type:"task"
