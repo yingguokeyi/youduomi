@@ -17,7 +17,7 @@ var id ='';
                 url_type:"task"
             },
             success: function(data) {
-                console.log(data,'全部任务')
+                // console.log(data,'全部任务')
                 var rsMain = data.result.rs;
                 var taskNumber = data.result.rs[1].result2;
                 // 任务，金额
@@ -520,12 +520,11 @@ var coTime = '';
 //  倒计时方法---已经开始
 function countdown (totalSecond,index){
     var that=this;
-    console.log( index,'hg')
-    console.log( document.getElementsByClassName('main_content_a_right')[index],'hgk')
+    // console.log( index,'hg')
+    // console.log( document.getElementsByClassName('main_content_a_right')[index],'hgk')
     if( document.getElementsByClassName('main_content_a_right')[index]){
-
         var d_drew = document.getElementsByClassName('main_content_a_right')[index].getElementsByClassName('d_drew')[0];
-        console.log(document.getElementsByClassName('main_content_a_right')[index],'jk')
+        // console.log(document.getElementsByClassName('main_content_a_right')[index],'jk')
         clearInterval(d_drew.interval);   
         d_drew.interval = setInterval(function () {
             // 总秒数
@@ -582,7 +581,7 @@ function countdown (totalSecond,index){
                         for( var j=0;j<fixationRs.length;j++){
                             if(fixationRs[j].state == 0){  //已有多少人完成
                                 //获取开始创建时间
-                                var warnsTime = allTasks[j].task_create_time;
+                                var warnsTime = fixationRs[j].task_create_time;
                                 var richTime = "20"+warnsTime.substring(0, 2) + "/" + warnsTime.substring(2, 4) + "/" + warnsTime.substring(4, 6) + " " + warnsTime.substring(6, 8) + ":" + warnsTime.substring(8, 10) + ":" + warnsTime.substring(10, 12);
                                 var expiryMonth = warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6)
                                 var sMonth = warnsTime.substring(2, 4);//月份
