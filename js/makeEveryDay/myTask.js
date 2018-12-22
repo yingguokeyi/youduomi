@@ -69,7 +69,7 @@ function ask(){
 }
 
 // tab切换---刚进到页面获取的数据    
-function placard(page,urlStatus){
+function placard(){
     $.ajax({
         url: domain_name_url + "/task",
         type: "GET",
@@ -78,10 +78,10 @@ function placard(page,urlStatus){
             method: 'getUserTask',
             userId: 4623,
             status:1,
-            page:page,
             url_type:"task"
         },
         success: function(data) {
+
             if(data.success==1){
                 var cutRst = data.result.rs[1].result2;//tab里面的内容
                 var detailsRst = data.result.rs[0].result;//获取的内容
@@ -127,9 +127,15 @@ function placard(page,urlStatus){
                             var totalSecond;
                             if (startDate < currentDate  && currentDate <= endTDate) {//已经在倒计时了
                                 totalSecond = parseInt((endTDate - currentDate) / 1000);
-                                setTimeout(function () {//已经在倒计时了
-                                    countdown(totalSecond)
+                                // setTimeout(function () {//已经在倒计时了
+                                //     countdown(totalSecond)
+                                //     },1000)
+
+                                (function(totalSecond,x){
+                                    setTimeout(function () {//已经在倒计时了
+                                        countdown(totalSecond,x);
                                     },1000)
+                                })(totalSecond,i);
                             } 
 
                             if (currentDate > endTDate) {//调接口
@@ -164,7 +170,7 @@ function placard(page,urlStatus){
                                 goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
                                 }
                             goodListHtml += '<span class="m_c_a_r_bottom">';
-                            goodListHtml += '<span class="m_c_a_r_bottomleft" id="drew"></span>';
+                            goodListHtml += '<span class="m_c_a_r_bottomleft d_drew"></span>';
                             goodListHtml += '</span>';
                             goodListHtml += '</span>';
                             goodListHtml += '<a href="#" class="main_content_a">';
@@ -502,6 +508,7 @@ function placard(page,urlStatus){
             url_type:"task"
         },
         success: function(data) {
+            // console.log(data,'点击进行')
             if(data.success==1){
                 var detailsRst = data.result.rs[0].result;//获取的内容
                 var runId = jsel.match('.id', detailsRst);//获得id
@@ -542,10 +549,17 @@ function placard(page,urlStatus){
                              //时间段要注意两种情况一种是刚进来就已经开始倒计时，还有就是到页面还没有倒计时，就用结束的时间减去当前的时间
                              var totalSecond;
                              if (startDate < currentDate  && currentDate <= endTDate) {//已经在倒计时了
-                                 totalSecond = parseInt((endTDate - currentDate) / 1000);
-                                 setTimeout(function () {//已经在倒计时了
-                                     countdown(totalSecond)
-                                     },1000)
+                                  totalSecond = parseInt((endTDate - currentDate) / 1000);
+                                //  setTimeout(function () {//已经在倒计时了
+                                //      countdown(totalSecond)
+                                //      },1000)
+                                (function(totalSecond,x){
+                                    setTimeout(function () {//已经在倒计时了
+                                        // console.log(totalSecond,x);
+                                        countdown(totalSecond,x);
+                                    },1000)
+                                })(totalSecond,i);
+
                              } 
                              if (currentDate > endTDate) {//调接口
                                 $.ajax({
@@ -579,7 +593,7 @@ function placard(page,urlStatus){
                                 goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
                                 }
                             goodListHtml += '<span class="m_c_a_r_bottom">';
-                            goodListHtml += '<span class="m_c_a_r_bottomleft" id="drew"></span>';
+                            goodListHtml += '<span class="m_c_a_r_bottomleft d_drew"></span>';
                             goodListHtml += '</span>';
                             goodListHtml += '</span>';
                             goodListHtml += '<a href="#" class="main_content_a">';
@@ -589,32 +603,57 @@ function placard(page,urlStatus){
                         }
                     
                     }
-                    if(12*page>12){
-                        $('#orderContent ul').append(goodListHtml);
-                        $('.mtw_k').click(function(){
-                            var pastMoney = $(this).data('bonus');//奖励钱
-                            var pastTitle = $(this).data('category_name');//标题
-                            var uri = $(this).data('id');//id
-                            var pastState = $(this).data('state');//获得状态state
-                            var board = $(this).data('create_end_time');//结束时间
-                            var initiate = $(this).data('task_create_time');//开始时间
-                            var creation = $(this).data('create_time');//用户开始做任务的时间
-                            sStorage = window.localStorage; //本地存题目
+                    // if(12*page>12){
+                    //     $('#orderContent ul').append(goodListHtml);
+                    //     $('.mtw_k').click(function(){
+                    //         var pastMoney = $(this).data('bonus');//奖励钱
+                    //         var pastTitle = $(this).data('category_name');//标题
+                    //         var uri = $(this).data('id');//id
+                    //         var pastState = $(this).data('state');//获得状态state
+                    //         var board = $(this).data('create_end_time');//结束时间
+                    //         var initiate = $(this).data('task_create_time');//开始时间
+                    //         var creation = $(this).data('create_time');//用户开始做任务的时间
+                    //         sStorage = window.localStorage; //本地存题目
                          
         
-                            sStorage.uri_goods = uri;//id
-                            sStorage.equation= pastState;//获得状态state
-                            sStorage.cash= (pastMoney/100).toFixed(2);//奖励钱
-                            sStorage.slogan= pastTitle;//标题
-                            sStorage.endingTime = board;//结束时间
-                            sStorage.setOutTime = initiate;//开始时间
-                            sStorage.setUptTime = creation;//用户开始做任务的时间
-                            var gurl = window.location.href;
+                    //         sStorage.uri_goods = uri;//id
+                    //         sStorage.equation= pastState;//获得状态state
+                    //         sStorage.cash= (pastMoney/100).toFixed(2);//奖励钱
+                    //         sStorage.slogan= pastTitle;//标题
+                    //         sStorage.endingTime = board;//结束时间
+                    //         sStorage.setOutTime = initiate;//开始时间
+                    //         sStorage.setUptTime = creation;//用户开始做任务的时间
+                    //         var gurl = window.location.href;
         
-                            localStorage.setItem('gurl', window.location.href);
-                            location.href = '../mine/task_details.html?spuId=' + uri + '&url=' + gurl ;
-                        })
-                    }else{
+                    //         localStorage.setItem('gurl', window.location.href);
+                    //         location.href = '../mine/task_details.html?spuId=' + uri + '&url=' + gurl ;
+                    //     })
+                    // }else{
+                    //     $('#orderContent ul').html(goodListHtml);
+                    //     $('.mtw_k').click(function(){
+                    //         var pastMoney = $(this).data('bonus');//奖励钱
+                    //         var pastTitle = $(this).data('category_name');//标题
+                    //         var uri = $(this).data('id');//id
+                    //         var pastState = $(this).data('state');//获得状态state
+                    //         var board = $(this).data('create_end_time');//结束时间
+                    //         var initiate = $(this).data('task_create_time');//开始时间
+                    //         var creation = $(this).data('create_time');//用户开始做任务的时间
+                    //         sStorage = window.localStorage; //本地存题目
+                           
+        
+                    //         sStorage.uri_goods = uri;//id
+                    //         sStorage.equation= pastState;//获得状态state
+                    //         sStorage.cash= (pastMoney/100).toFixed(2);//奖励钱
+                    //         sStorage.slogan= pastTitle;//标题
+                    //         sStorage.endingTime = board;//结束时间
+                    //         sStorage.setOutTime = initiate;//开始时间
+                    //         sStorage.setUptTime = creation;//用户开始做任务的时间
+                    //         var gurl = window.location.href;
+        
+                    //         localStorage.setItem('gurl', window.location.href);
+                    //         location.href = '../mine/task_details.html?spuId=' + uri + '&url=' + gurl ;
+                    //     })
+                    // } 
                         $('#orderContent ul').html(goodListHtml);
                         $('.mtw_k').click(function(){
                             var pastMoney = $(this).data('bonus');//奖励钱
@@ -625,7 +664,7 @@ function placard(page,urlStatus){
                             var initiate = $(this).data('task_create_time');//开始时间
                             var creation = $(this).data('create_time');//用户开始做任务的时间
                             sStorage = window.localStorage; //本地存题目
-                           
+                        
         
                             sStorage.uri_goods = uri;//id
                             sStorage.equation= pastState;//获得状态state
@@ -639,7 +678,7 @@ function placard(page,urlStatus){
                             localStorage.setItem('gurl', window.location.href);
                             location.href = '../mine/task_details.html?spuId=' + uri + '&url=' + gurl ;
                         })
-                    } 
+
                     $(this).addClass("tabhover").parent().siblings().find("a").removeClass("tabhover");
                     // 查看出现弹框
                     $(function(){
@@ -1013,7 +1052,7 @@ $('#completed').click(function(){
             url_type:"task"
         },
         success: function(data) {
-            console.log(data,'已结束')
+            // console.log(data,'已结束')
             if(data.success==1){
                 var detailsRst = data.result.rs[0].result;//获取的内容
                 var runId = jsel.match('.id', detailsRst);//获得id
@@ -1349,10 +1388,11 @@ window.onscroll = function(){
 
 
 //  倒计时方法---已经开始
-function countdown (totalSecond){
+function countdown (totalSecond,index){
     var that=this;
-    clearInterval(that.interval);
-    that.interval = setInterval(function () {
+    var d_drew = document.getElementsByClassName('main_content_a_right')[index].getElementsByClassName('d_drew')[0];
+    clearInterval(d_drew.interval);   
+    d_drew.interval= setInterval(function () {
 	    // 总秒数
 	    var second = totalSecond;
 	    // 天数位
@@ -1372,12 +1412,15 @@ function countdown (totalSecond){
 	    var secStr = sec.toString();
         if (secStr.length == 1) secStr = '0' + secStr;
         //将倒计时赋值到div中
-        document.getElementById("drew").innerHTML = '已领取    ' +  ' 剩余时间'+'：'+hrStr+':'+minStr+':'+secStr;  
+        // document.getElementById("drew").innerHTML = '已领取    ' +  ' 剩余时间'+'：'+hrStr+':'+minStr+':'+secStr; 
+        d_drew.innerHTML = '已领取    ' +  ' 剩余时间'+'：'+hrStr+':'+minStr+':'+secStr; 
         totalSecond--; 
 	    if (totalSecond == 0) {
             setTimeout(function tt(){
-                 document.getElementById("drew").innerHTML = '已领取    ' +  ' 剩余时间'+'：'+'00'+':'+'00'+':'+'00';
-                clearInterval(that.interval); 
+                //  document.getElementById("drew").innerHTML = '已领取    ' +  ' 剩余时间'+'：'+'00'+':'+'00'+':'+'00';
+                d_drew.innerHTML = '已领取    ' +  ' 剩余时间'+'：'+'00'+':'+'00'+':'+'00';
+                // clearInterval(that.interval); 
+                clearInterval(d_drew.interval); 
             },1000)
             $.ajax({
                 url: domain_name_url + "/task",
