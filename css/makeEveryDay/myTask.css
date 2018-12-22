@@ -326,6 +326,10 @@ imng{
 	text-align: center;
 }
 .onec {
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+    overflow:hidden;
 	font-size: 0.26rem;
 	color: #666;
 }
