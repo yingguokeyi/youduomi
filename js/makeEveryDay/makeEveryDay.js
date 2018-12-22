@@ -18,6 +18,10 @@ var id ='';
                 url_type:"task"
             },
             success: function(data) {
+<<<<<<< HEAD
+=======
+                // console.log(data,'全部任务')
+>>>>>>> 9ec536d9d4a284990ed8951841b69b778197041d
                 var rsMain = data.result.rs;
                 var taskNumber = data.result.rs[1].result2;
                 // 任务，金额
@@ -481,6 +485,7 @@ window.onscroll = function(){
 //  倒计时方法---已经开始
 function countdown (totalSecond){
     var that=this;
+<<<<<<< HEAD
     clearInterval(that.interval);
     that.interval = setInterval(function () {
 	    // 总秒数
@@ -568,6 +573,128 @@ function countdown (totalSecond){
                             rsHtml += '</li>';
                         } 
 
+=======
+    // console.log( index,'hg')
+    // console.log( document.getElementsByClassName('main_content_a_right')[index],'hgk')
+    if( document.getElementsByClassName('main_content_a_right')[index]){
+        var d_drew = document.getElementsByClassName('main_content_a_right')[index].getElementsByClassName('d_drew')[0];
+        // console.log(document.getElementsByClassName('main_content_a_right')[index],'jk')
+        clearInterval(d_drew.interval);   
+        d_drew.interval = setInterval(function () {
+            // 总秒数
+            var second = totalSecond;
+            // 天数位
+            var day = Math.floor(second / 3600 / 24);
+            var dayStr = day.toString();
+            if (dayStr.length == 1) dayStr = '0' + dayStr;
+            // 小时位
+            var hr = Math.floor((second - day * 3600 * 24) / 3600);
+            var hrStr = hr.toString();
+            if (hrStr.length == 1) hrStr = '0' + hrStr;
+            // 分钟位
+            var min = Math.floor((second - day * 3600 * 24 - hr * 3600) / 60);
+            var minStr = min.toString();
+            if (minStr.length == 1) minStr = '0' + minStr;
+            // 秒位
+            var sec = second - day * 3600 * 24 - hr * 3600 - min * 60;
+            var secStr = sec.toString();
+            if (secStr.length == 1) secStr = '0' + secStr;
+            //将倒计时赋值到div中
+            d_drew.innerHTML = '已领取    ' +  ' 剩余时间'+'：'+hrStr+':'+minStr+':'+secStr;
+            totalSecond--; 
+            if (totalSecond == 0) {
+                setTimeout(function tt(totalSecond){
+                    // document.getElementsByClassName("d_drew").innerHTML = '已领取    ' +  ' 剩余时间'+'：'+'00'+':'+'00'+':'+'00';
+                    d_drew.innerHTML = '已领取    ' +  ' 剩余时间'+'：'+'00'+':'+'00'+':'+'00';
+                    // clearInterval(that.interval); 
+                    clearInterval(d_drew.interval); 
+                },1000)
+                $.ajax({
+                    url: domain_name_url + "/task",
+                    type: "GET",
+                    dataType: "jsonp", //指定服务器返回的数据类型
+                    data: {
+                        method: 'delTask',
+                        userId: 4623,
+                        task_id:id,
+                        url_type:"task"
+                    },
+                    success: function(data) {
+                     
+                        var fixationRs = data.result.rs[0].result.result.rs;
+                       
+                        var runId = jsel.match('.id', fixationRs);//获得id
+                        var phaseState = jsel.match('.state', fixationRs);//获得状态state
+                        var walletBonus = jsel.match('.bonus', fixationRs);//获得钱bonus
+                        var captionName = jsel.match('.category_name', fixationRs);//获得标题category_name
+                        var peopleNumber = jsel.match('.number', fixationRs);//获得人数number
+                        var stopTime = jsel.match('.create_end_time', fixationRs);//结束时间
+                        var beginTime = jsel.match('.task_create_time', fixationRs);//开始时间
+                        var foundTime = jsel.match('.create_time', fixationRs);//用户创建任务开始的时间
+                        var rsHtml ='';
+                        for( var j=0;j<fixationRs.length;j++){
+                            if(fixationRs[j].state == 0){  //已有多少人完成
+                                //获取开始创建时间
+                                var warnsTime = fixationRs[j].task_create_time;
+                                var richTime = "20"+warnsTime.substring(0, 2) + "/" + warnsTime.substring(2, 4) + "/" + warnsTime.substring(4, 6) + " " + warnsTime.substring(6, 8) + ":" + warnsTime.substring(8, 10) + ":" + warnsTime.substring(10, 12);
+                                var expiryMonth = warnsTime.substring(2, 4) + "月" + warnsTime.substring(4, 6)
+                                var sMonth = warnsTime.substring(2, 4);//月份
+                                var sDate = warnsTime.substring(4, 6);//日
+                                var sHour = warnsTime.substring(6, 8);//小时
+                                var sMinute = warnsTime.substring(8, 10);//分钟
+                                var sSecond = warnsTime.substring(10, 12);//秒
+                                var sMiao = sHour*3600 + sMinute*60 + sSecond*1;
+                                rsHtml += '<li class="main_content_li mtw_k"  data-id='+runId[j]+'  data-state='+phaseState[j]+'  data-bonus='+walletBonus[j]+'  data-category_name='+captionName[j]+' data-number='+peopleNumber[j]+' data-create_end_time='+stopTime[j]+' data-task_create_time='+beginTime[j]+' data-create_time='+foundTime[j]+'>';
+                                rsHtml += '<span class="main_content_a_left">';
+                                rsHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
+                                rsHtml += '</span>';
+                                rsHtml += '<span class="p_purse">'+(fixationRs[j].bonus/100).toFixed(2)+'</span>';
+                                rsHtml += '<span class="main_content_a_right">';
+                                if( miao- sMiao<=3600){
+                                    rsHtml += '<span class="m_c_a_r_top">'+fixationRs[j].category_name+'<i class="just_now">刚刚</i></span>';
+                                    }else if(miao- sMiao>3600){
+                                        rsHtml += '<span class="m_c_a_r_top">'+fixationRs[j].category_name+'<i class="just_now">今天</i></span>';
+                                    }else if( Month!=sMonth && date!=sDate){
+                                        rsHtml += '<span class="m_c_a_r_top">'+fixationRs[j].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                                    }
+                                rsHtml += '<span class="m_c_a_r_bottom">';
+                                rsHtml += '<span class="m_c_a_r_bottomleft">已有'+fixationRs[j].number+'人领取</span>';
+                                rsHtml += '</span>';
+                                rsHtml += '</span>';
+                                rsHtml += '<a class="main_content_a">';
+                                rsHtml += '<div class="particulars">详情</div>';
+                                rsHtml += '</a>';
+                                rsHtml += '</li>';
+                            } 
+    
+                        }
+                        $('#orderContent ul').html('');
+                        $('#orderContent ul').html(rsHtml);
+                        $('.mtw_k').click(function(){
+                            var uri = $(this).data('id');//id
+                            var pastState = $(this).data('state');//获得状态state
+                            var pastMoney = $(this).data('bonus');//奖励钱
+                            var pastTitle = $(this).data('category_name');//标题
+                            var pastNumber = $(this).data('number');//已完成人数
+                            var board = $(this).data('create_end_time');//结束时间
+                            var initiate = $(this).data('task_create_time');//开始时间
+                            var creation = $(this).data('create_time');//用户开始做任务的时间
+                            sStorage = window.localStorage; //本地存题目
+        
+                            sStorage.uri_goods = uri;//id
+                            sStorage.equation= pastState;//获得状态state
+                            sStorage.cash= (pastMoney/100).toFixed(2);//奖励钱
+                            sStorage.slogan= pastTitle;//标题
+                            sStorage.smallBanks = pastNumber;//已完成人数
+                            sStorage.endingTime = board;//结束时间
+                            sStorage.setOutTime = initiate;//开始时间
+                            sStorage.setUptTime = creation;//用户开始做任务的时间
+                            var gurl = window.location.href;
+        
+                            localStorage.setItem('gurl', window.location.href);
+                            location.href = '../mine/task_details.html?spuId=' + uri +'&url=' + gurl ;
+                        })
+>>>>>>> 9ec536d9d4a284990ed8951841b69b778197041d
                     }
                     $('#orderContent ul').html('');
                     $('#orderContent ul').html(rsHtml);
