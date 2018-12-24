@@ -68,7 +68,7 @@ function ask(){
       
 }
 
-// tab切换---刚进到页面获取的数据    
+// tab切换---刚进到页面获取的全部数据    
 function placard(){
     $.ajax({
         url: domain_name_url + "/task",
@@ -163,13 +163,14 @@ function placard(){
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
                             goodListHtml += '<span class="p_purse">'+(detailsRst[i].bonus/100).toFixed(2)+'</span>';
-                            goodListHtml += '<span class="main_content_a_right">';
-                            if( miao-sMiao<=3600){
-                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
+                            goodListHtml += '<span class="main_content_a_right a_righ_time">';
+
+                            if( (Month!=sMonth && date!=sDate)|| (Month == sMonth && date!=sDate)){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
                                 }else if(miao-sMiao>3600){
                                 goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">今天</i></span>';
-                                }else if( Month!=sMonth && date!=sDate){
-                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                                }else if( miao-sMiao<=3600){
+                                    goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
                                 }
                             goodListHtml += '<span class="m_c_a_r_bottom">';
                             goodListHtml += '<span class="m_c_a_r_bottomleft d_drew"></span>';
@@ -196,16 +197,17 @@ function placard(){
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
                             goodListHtml += '<span class="p_purse">'+(detailsRst[i].bonus/100).toFixed(2)+'</span>';
-                            goodListHtml += '<span class="main_content_a_right">';
-                            if( miao-sMiao<=3600){
-                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
+                            goodListHtml += '<span class="main_content_a_right a_righ_time">';
+
+                            if( (Month!=sMonth && date!=sDate)|| (Month == sMonth && date!=sDate)){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
                                 }else if(miao-sMiao>3600){
                                 goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">今天</i></span>';
-                                }else if( Month!=sMonth && date!=sDate){
-                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                                }else if( miao-sMiao<=3600){
+                                    goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
                                 }
                             goodListHtml += '<span class="m_c_a_r_bottom">';
-                            goodListHtml += '<span class="m_c_a_r_orange">预计1-23小时，超时自动到账</span>';
+                            goodListHtml += '<span class="m_c_a_r_orange d_drew">预计1-23小时，超时自动到账</span>';
                             goodListHtml += '</span>';
                             goodListHtml += '</span>';
                             goodListHtml += '<a href="#" class="main_content_a">';
@@ -230,16 +232,17 @@ function placard(){
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
                             goodListHtml += '<span class="p_purse">'+(detailsRst[i].bonus/100).toFixed(2)+'</span>';
-                            goodListHtml += '<span class="main_content_a_right">';
-                            if( miao-sMiao<=3600){
-                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
+                            goodListHtml += '<span class="main_content_a_right a_righ_time">';
+
+                            if( (Month!=sMonth && date!=sDate)|| (Month == sMonth && date!=sDate)){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
                                 }else if(miao-sMiao>3600){
                                 goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">今天</i></span>';
-                                }else if( Month!=sMonth && date!=sDate){
-                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                                }else if( miao-sMiao<=3600){
+                                    goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
                                 }
                             goodListHtml += '<span class="m_c_a_r_bottom">';
-                            goodListHtml += '<span class="m_c_a_r_red">审核失败</span>';
+                            goodListHtml += '<span class="m_c_a_r_red d_drew">审核失败</span>';
                             goodListHtml += '</span>';
                             goodListHtml += '</span>';
                             goodListHtml += '<div class="bonus">查看</div>';
@@ -262,16 +265,17 @@ function placard(){
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
                             goodListHtml += '<span class="p_purse">'+(detailsRst[i].bonus/100).toFixed(2)+'</span>';
-                            goodListHtml += '<span class="main_content_a_right">';
-                            if( miao-sMiao<=3600){
-                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
+                            goodListHtml += '<span class="main_content_a_right a_righ_time">';
+
+                             if( (Month!=sMonth && date!=sDate)|| (Month == sMonth && date!=sDate)){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
                                 }else if(miao-sMiao>3600){
                                 goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">今天</i></span>';
-                                }else if( Month!=sMonth && date!=sDate){
-                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                                }else if( miao-sMiao<=3600){
+                                    goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
                                 }
                             goodListHtml += '<span class="m_c_a_r_bottom">';
-                            goodListHtml += ' <span class="m_c_a_r_green">获得奖励  '+(detailsRst[i].bonus/100).toFixed(2)+'元</span>';
+                            goodListHtml += ' <span class="m_c_a_r_green d_drew">获得奖励  '+(detailsRst[i].bonus/100).toFixed(2)+'元</span>';
                             goodListHtml += '</span>';
                             goodListHtml += '</span>';
                             goodListHtml += '<div class="main_content_a">';
@@ -296,16 +300,18 @@ function placard(){
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/ash.png">';
                             goodListHtml += '</span>';
                             goodListHtml += '<span class="y_purse">'+(detailsRst[i].bonus/100).toFixed(2)+' </span>';
-                            goodListHtml += '<span class="main_content_a_ash">';
-                            if( miao-sMiao<=3600){
-                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
+                            goodListHtml += '<span class="main_content_a_ash a_righ_time">';
+
+                            if( (Month!=sMonth && date!=sDate)|| (Month == sMonth && date!=sDate)){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
                                 }else if(miao-sMiao>3600){
                                 goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">今天</i></span>';
-                                }else if( Month!=sMonth && date!=sDate){
-                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                                }else if( miao-sMiao<=3600){
+                                    goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
                                 }
+
                             goodListHtml += '<span class="m_c_a_r_ash">';
-                            goodListHtml += '<span class="m_c_a_r_bottomlefts">任务已过期</span>';
+                            goodListHtml += '<span class="m_c_a_r_bottomlefts d_drew">任务已过期</span>';
                             goodListHtml += ' </span>';
                             goodListHtml += '</span>';
                             goodListHtml += '<div class="main_content_a">';
@@ -581,13 +587,14 @@ function placard(){
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
                             goodListHtml += '<span class="p_purse">'+(detailsRst[i].bonus/100).toFixed(2)+'</span>';
-                            goodListHtml += '<span class="main_content_a_right">';
-                            if( miao-sMiao<=3600){
-                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
+                            goodListHtml += '<span class="main_content_a_right a_righ_time">';
+
+                            if( (Month!=sMonth && date!=sDate)|| (Month == sMonth && date!=sDate)){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
                                 }else if(miao-sMiao>3600){
                                 goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">今天</i></span>';
-                                }else if( Month!=sMonth && date!=sDate){
-                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                                }else if( miao-sMiao<=3600){
+                                    goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
                                 }
                             goodListHtml += '<span class="m_c_a_r_bottom">';
                             goodListHtml += '<span class="m_c_a_r_bottomleft d_drew"></span>';
@@ -760,16 +767,17 @@ function placard(){
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
                             goodListHtml += '<span class="p_purse">'+(detailsRst[i].bonus/100).toFixed(2)+'</span>';
-                            goodListHtml += '<span class="main_content_a_right">';
-                            if( miao-sMiao<=3600){
-                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
+                            goodListHtml += '<span class="main_content_a_right a_righ_time">';
+
+                             if( (Month!=sMonth && date!=sDate)|| (Month == sMonth && date!=sDate)){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
                                 }else if(miao-sMiao>3600){
                                 goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">今天</i></span>';
-                                }else if( Month!=sMonth && date!=sDate){
-                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                                }else if( miao-sMiao<=3600){
+                                    goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
                                 }
                             goodListHtml += '<span class="m_c_a_r_bottom">';
-                            goodListHtml += '<span class="m_c_a_r_orange">预计1-23小时，超时自动到账</span>';
+                            goodListHtml += '<span class="m_c_a_r_orange d_drew">预计1-23小时，超时自动到账</span>';
                             goodListHtml += '</span>';
                             goodListHtml += '</span>';
                             goodListHtml += '<a href="#" class="main_content_a">';
@@ -937,16 +945,17 @@ $('#completed').click(function(){
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
                             goodListHtml += '<span class="p_purse">'+(detailsRst[i].bonus/100).toFixed(2)+'</span>';
-                            goodListHtml += '<span class="main_content_a_right">';
-                            if( miao-sMiao<=3600){
-                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
+                            goodListHtml += '<span class="main_content_a_right a_righ_time">';
+
+                             if( (Month!=sMonth && date!=sDate)|| (Month == sMonth && date!=sDate)){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
                                 }else if(miao-sMiao>3600){
                                 goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">今天</i></span>';
-                                }else if( Month!=sMonth && date!=sDate){
-                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                                }else if( miao-sMiao<=3600){
+                                    goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
                                 }
                             goodListHtml += '<span class="m_c_a_r_bottom">';
-                            goodListHtml += '<span class="m_c_a_r_red">审核失败</span>';
+                            goodListHtml += '<span class="m_c_a_r_red d_drew">审核失败</span>';
                             goodListHtml += '</span>';
                             goodListHtml += '</span>';
                             goodListHtml += '<div class="bonus">查看</div>';
@@ -969,16 +978,17 @@ $('#completed').click(function(){
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                             goodListHtml += '</span>';
                             goodListHtml += '<span class="p_purse">'+(detailsRst[i].bonus/100).toFixed(2)+'</span>';
-                            goodListHtml += '<span class="main_content_a_right">';
-                            if( miao-sMiao<=3600){
-                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
+                            goodListHtml += '<span class="main_content_a_right a_righ_time">';
+
+                            if( (Month!=sMonth && date!=sDate)|| (Month == sMonth && date!=sDate)){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
                                 }else if(miao-sMiao>3600){
                                 goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">今天</i></span>';
-                                }else if( Month!=sMonth && date!=sDate){
-                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
-                                }    
+                                }else if( miao-sMiao<=3600){
+                                    goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
+                                }
                             goodListHtml += '<span class="m_c_a_r_bottom">';
-                            goodListHtml += ' <span class="m_c_a_r_green">获得奖励  '+(detailsRst[i].bonus/100).toFixed(2)+'元</span>';
+                            goodListHtml += ' <span class="m_c_a_r_green d_drew">获得奖励  '+(detailsRst[i].bonus/100).toFixed(2)+'元</span>';
                             goodListHtml += '</span>';
                             goodListHtml += '</span>';
                             goodListHtml += '<div class="main_content_a">';
@@ -1003,16 +1013,17 @@ $('#completed').click(function(){
                             goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/ash.png">';
                             goodListHtml += '</span>';
                             goodListHtml += '<span class="y_purse">'+(detailsRst[i].bonus/100).toFixed(2)+' </span>';
-                            goodListHtml += '<span class="main_content_a_ash">';
-                            if( miao-sMiao<=3600){
-                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
+                            goodListHtml += '<span class="main_content_a_ash a_righ_time">';
+
+                            if( (Month!=sMonth && date!=sDate)|| (Month == sMonth && date!=sDate)){
+                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
                                 }else if(miao-sMiao>3600){
                                 goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">今天</i></span>';
-                                }else if( Month!=sMonth && date!=sDate){
-                                goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                                }else if( miao-sMiao<=3600){
+                                    goodListHtml += '<span class="m_c_a_r_top">'+detailsRst[i].category_name+'<i class="just_now">刚刚</i></span>';
                                 }
                             goodListHtml += '<span class="m_c_a_r_ash">';
-                            goodListHtml += '<span class="m_c_a_r_bottomlefts">任务已过期</span>';
+                            goodListHtml += '<span class="m_c_a_r_bottomlefts d_drew">任务已过期</span>';
                             goodListHtml += ' </span>';
                             goodListHtml += '</span>';
                             goodListHtml += '<div class="main_content_a">';
@@ -1244,8 +1255,8 @@ window.onscroll = function(){
 //  倒计时方法---已经开始
 function countdown (totalSecond,index){
     var that=this;
-    if( document.getElementsByClassName('main_content_a_right')[index]){
-        var d_drew = document.getElementsByClassName('main_content_a_right')[index].getElementsByClassName('d_drew')[0];
+    if( document.getElementsByClassName('a_righ_time')[index]){
+        var d_drew = document.getElementsByClassName('a_righ_time')[index].getElementsByClassName('d_drew')[0];
         clearInterval(d_drew.interval);   
         d_drew.interval= setInterval(function () {
             // 总秒数
