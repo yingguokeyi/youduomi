@@ -10,11 +10,13 @@ $(function(){
             method: 'getUserTaskInfo',
             userId: 4623,
             taskId:uri,
+            openid:'ofK6n1OSxG3xVEVWJIggOwnMcevM',
             url_type:"task"
         },
         success: function(data) {
         	var rs = data.result.rs[0].result.result.rs[0];
         	var rsImg = data.result.rs[1];
+        	var rsPhone = data.result.rs[2];
         	if(rs!=''){
         		var situation = rs.state;//状态
 				var dough = rs.bonus;//奖励钱
@@ -65,7 +67,7 @@ $(function(){
 				var sMinute = creatTime.substring(8, 10);//分钟
 				var sSecond = creatTime.substring(10, 12);//秒
 				var sMiao = sHour*3600 + sMinute*60 + sSecond*1;
-				if(Month!=sMonth && date!=sDate){
+				if((Month!=sMonth && date!=sDate)||(Month==sMonth && date!=sDate)){
 					$('.now').html(sMonth+'月'+sDate+'日');
 				}else if(miao-sMiao<=3600){
 					$('.now').html('刚刚');
@@ -172,14 +174,21 @@ $(function(){
 								})
 				            },1000)
 					    }else{
-					  //   	$('#task_apply').click(function(){
-							// 	location.href = 'start_taskFirst.html';
-							// })
+					  
 					    }
 				    }.bind(that) ,1000);
 
 				}
         	}
+        	//判断有没有绑定手机号
+        	var phone = rsPhone.phone;
+        	$('#task_apply').click(function(){
+        		if(phone==''){
+        			var url = window.location.href;
+        			localStorage.setItem('url', window.location.href);
+        			location.href = '../register/register.html?url='+url;
+        		}
+        	})
         	// 图片
         	var img = rsImg.img;
         	if(img!=undefined){

@@ -243,7 +243,7 @@ var id ='';
                                         var gurl = window.location.href;
                     
                                         localStorage.setItem('gurl', window.location.href);
-                                        location.href = '../mine/task_details.html?spuId=' + uri +'&url=' + gurl ;
+                                        location.href = '../mine/task_details.html';
                                     })
                                 }
                             })
@@ -372,7 +372,7 @@ var id ='';
                     var gurl = window.location.href;
 
                     localStorage.setItem('gurl', window.location.href);
-                    location.href = '../mine/task_details.html?spuId='+ uri +'&url=' + gurl ;
+                    location.href = '../mine/task_details.html';
                 })
     
             }
@@ -638,7 +638,7 @@ function countdown (totalSecond,index){
                             var gurl = window.location.href;
         
                             localStorage.setItem('gurl', window.location.href);
-                            location.href = '../mine/task_details.html?spuId=' + uri +'&url=' + gurl ;
+                            location.href = '../mine/task_details.html';
                         })
                     }
                 })

@@ -337,7 +337,7 @@ function placard(){
                         var gurl = window.location.href;
     
                         localStorage.setItem('gurl', window.location.href);
-                        location.href = '../mine/task_details.html?spuId=' + uri + '&url=' + gurl ;
+                        location.href = '../mine/task_details.html';
                     })
                     // 查看出现弹框
                     $(function(){
@@ -392,7 +392,7 @@ function placard(){
                             var gurl = window.location.href;
         
                             localStorage.setItem('gurl', window.location.href);
-                            location.href = '../mine/task_details.html?spuId=' + uri +'&url=' + gurl ;
+                            location.href = '../mine/task_details.html';
 
                         })
                     })
@@ -623,7 +623,7 @@ function placard(){
                             var gurl = window.location.href;
         
                             localStorage.setItem('gurl', window.location.href);
-                            location.href = '../mine/task_details.html?spuId=' + uri + '&url=' + gurl ;
+                            location.href = '../mine/task_details.html';
                         })
 
                     $(this).addClass("tabhover").parent().siblings().find("a").removeClass("tabhover");
@@ -800,7 +800,7 @@ function placard(){
                         var gurl = window.location.href;
     
                         localStorage.setItem('gurl', window.location.href);
-                        location.href = '../mine/task_details.html?spuId=' + uri + '&url=' + gurl ;
+                        location.href = '../mine/task_details.html';
                     })
                     $(this).addClass("tabhover").parent().siblings().find("a").removeClass("tabhover");
                 
@@ -1043,7 +1043,7 @@ $('#completed').click(function(){
                         var gurl = window.location.href;
     
                         localStorage.setItem('gurl', window.location.href);
-                        location.href = '../mine/task_details.html?spuId=' + uri + '&url=' + gurl ;
+                        location.href = '../mine/task_details.html';
                     })
                     $(this).addClass("tabhover").parent().siblings().find("a").removeClass("tabhover");
                     // 查看出现弹框
@@ -1101,7 +1101,7 @@ $('#completed').click(function(){
                             var gurl = window.location.href;
         
                             localStorage.setItem('gurl', window.location.href);
-                            location.href = '../mine/task_details.html?spuId=' + uri +'&url=' + gurl ;
+                            location.href = '../mine/task_details.html';
 
                         })
                     })

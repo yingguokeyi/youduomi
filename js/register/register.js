@@ -179,8 +179,13 @@ $(function(){
 						skin: 'msg',
 						time: 2 //2秒后自动关闭
 					});
-
-					// setTimeout("location.href='login.html'", 1000);
+					var lurl = window.location.href;
+					var url = localStorage.getItem('url');
+					if(lurl.indexOf("url") != -1){
+						window.location.href=url;
+					}else{
+						window.location.href='../mine/mine.html';
+					}
 
 				} else if(da_success == 2){//短信验证码错误
 					layer.open({
