@@ -55,7 +55,7 @@ var id ='';
                 currentDates.getSeconds(); //获取当前秒数(0-59)
                 var Month = currentDates.getMonth()+1;
                 var date = currentDates.getDate();
-                var miao =currentDates.getHours()*3600 + currentDates.getMinutes()*60 + currentDates.getSeconds();
+                var miao =currentDates.getHours()*3600 + currentDates.getMinutes()*60 + currentDates.getSeconds();//当前的秒
                 
                 var goodListHtml = '';
                for(var i=0; i<allTasks.length;i++ ){
@@ -69,22 +69,25 @@ var id ='';
                          var sHour = warnsTime.substring(6, 8);//小时
                          var sMinute = warnsTime.substring(8, 10);//分钟
                          var sSecond = warnsTime.substring(10, 12);//秒
-                         var sMiao = sHour*3600 + sMinute*60 + sSecond*1;
+                         var sMiao = sHour*3600 + sMinute*60 + sSecond*1;//开始时间的总得秒
+
                         goodListHtml += '<li class="main_content_li mtw_k"  data-id='+runId[i]+'  data-state='+phaseState[i]+'  data-bonus='+walletBonus[i]+'  data-category_name='+captionName[i]+' data-number='+peopleNumber[i]+' data-create_end_time='+stopTime[i]+' data-task_create_time='+beginTime[i]+' data-create_time='+foundTime[i]+' >';
                         goodListHtml += '<span class="main_content_a_left">';
                         goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                         goodListHtml += '</span>';
                         goodListHtml += '<span class="p_purse">'+(allTasks[i].bonus/100).toFixed(2)+'</span>';
-                        goodListHtml += '<span class="main_content_a_right">';
-                        if( miao-sMiao<=3600){
-                            goodListHtml += '<span class="m_c_a_r_top">'+allTasks[i].category_name+'<i class="just_now">刚刚</i></span>';
-                        }else if(miao-sMiao>3600){
-                            goodListHtml += '<span class="m_c_a_r_top">'+allTasks[i].category_name+'<i class="just_now">今天</i></span>';
-                        }else if( Month!=sMonth && date!=sDate){
+                        goodListHtml += '<span class="main_content_a_right a_righ_time">';
+
+                        if( (Month!=sMonth && date!=sDate)|| (Month == sMonth && date!=sDate)){//判断当前月和日与开始的不相等
+    
                             goodListHtml += '<span class="m_c_a_r_top">'+allTasks[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                        }else if(miao-sMiao>3600){//判断当前秒与开始
+                            goodListHtml += '<span class="m_c_a_r_top">'+allTasks[i].category_name+'<i class="just_now">今天</i></span>';
+                        }else if( miao-sMiao<=3600){
+                            goodListHtml += '<span class="m_c_a_r_top">'+allTasks[i].category_name+'<i class="just_now">刚刚</i></span>';
                         }
                         goodListHtml += '<span class="m_c_a_r_bottom">';
-                        goodListHtml += '<span class="m_c_a_r_bottomleft">已有'+allTasks[i].number+'人领取</span>';
+                        goodListHtml += '<span class="m_c_a_r_bottomleft d_drew">已有'+allTasks[i].number+'人领取</span>';
                         goodListHtml += '</span>';
                         goodListHtml += '</span>';
                         goodListHtml += '<a class="main_content_a">';
@@ -138,14 +141,15 @@ var id ='';
                          goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                          goodListHtml += ' </span>';
                          goodListHtml += '<span class="p_purse">'+(allTasks[i].bonus/100).toFixed(2)+'</span>';
-                         goodListHtml += '<span class="main_content_a_right">';
-                         if( miao- sMiao<=3600){
-                             goodListHtml += '<span class="m_c_a_r_top">'+allTasks[i].category_name+'<i class="just_now">刚刚</i></span>';
-                             }else if(miao- sMiao>3600){
-                                 goodListHtml += '<span class="m_c_a_r_top">'+allTasks[i].category_name+'<i class="just_now">今天</i></span>';
-                             }else if( Month!=sMonth && date!=sDate){
-                                 goodListHtml += '<span class="m_c_a_r_top">'+allTasks[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
-                         } 
+                         goodListHtml += '<span class="main_content_a_right a_righ_time">';
+
+                         if( (Month!=sMonth && date!=sDate)|| (Month == sMonth && date!=sDate)){//判断当前月和日与开始的不相等
+                            goodListHtml += '<span class="m_c_a_r_top">'+allTasks[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                        }else if(miao-sMiao>3600){//判断当前秒与开始
+                            goodListHtml += '<span class="m_c_a_r_top">'+allTasks[i].category_name+'<i class="just_now">今天</i></span>';
+                        }else if( miao-sMiao<=3600){
+                            goodListHtml += '<span class="m_c_a_r_top">'+allTasks[i].category_name+'<i class="just_now">刚刚</i></span>';
+                        }
                          goodListHtml += '<span class="m_c_a_r_bottom">';
                          goodListHtml += '<span class="m_c_a_r_bottomleft d_drew"></span>';
                          goodListHtml += '</span>';
@@ -158,6 +162,7 @@ var id ='';
 
                         //当前时间大于结束时间 ，调接口,改变状态
                         if ( currentDate > endTDate) {//当前时间大于结束时间 ，调接口
+                            // console.log(id,'ss')
                             $.ajax({
                                 url: domain_name_url + "/task",
                                 type: "GET",
@@ -200,16 +205,18 @@ var id ='';
                                             rsHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                                             rsHtml += '</span>';
                                             rsHtml += '<span class="p_purse">'+(fixationRs[i].bonus/100).toFixed(2)+'</span>';
-                                            rsHtml += '<span class="main_content_a_right">';
-                                            if( miao-sMiao<=3600){
+                                            rsHtml += '<span class="main_content_a_right a_righ_time">';
+                                             if( (Month!=sMonth && date!=sDate)|| (Month == sMonth && date!=sDate)){//判断当前月和日与开始的不相等
+    
+                                                rsHtml += '<span class="m_c_a_r_top">'+fixationRs[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                                            }else if(miao-sMiao>3600){//判断当前秒与开始
+                                                rsHtml += '<span class="m_c_a_r_top">'+fixationRs[i].category_name+'<i class="just_now">今天</i></span>';
+                                            }else if( miao-sMiao<=3600){
+                                               
                                                 rsHtml += '<span class="m_c_a_r_top">'+fixationRs[i].category_name+'<i class="just_now">刚刚</i></span>';
-                                                }else if(miao-sMiao>3600){
-                                                    rsHtml += '<span class="m_c_a_r_top">'+fixationRs[i].category_name+'<i class="just_now">今天</i></span>';
-                                                }else if( Month!=sMonth && date!=sDate){
-                                                    rsHtml += '<span class="m_c_a_r_top">'+fixationRs[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
-                                            } 
+                                            }
                                             rsHtml += '<span class="m_c_a_r_bottom">';
-                                            rsHtml += '<span class="m_c_a_r_bottomleft">已有'+fixationRs[i].number+'人领取</span>';
+                                            rsHtml += '<span class="m_c_a_r_bottomleft d_drew">已有'+fixationRs[i].number+'人领取</span>';
                                             rsHtml += '</span>';
                                             rsHtml += '</span>';
                                             rsHtml += '<a class="main_content_a">';
@@ -268,16 +275,19 @@ var id ='';
                         goodListHtml += '<img class="main_img" src="../../image/makeEveryDay/ash.png">';
                         goodListHtml += '</span>';
                         goodListHtml += '<span class="y_purse">'+(allTasks[i].bonus/100).toFixed(2)+' </span>';
-                        goodListHtml += '<span class="main_content_a_ash">';
-                        if( miao- sMiao<=3600){
-                            goodListHtml += '<span class="m_c_a_r_top">'+allTasks[i].category_name+'<i class="just_now">刚刚</i></span>';
-                            }else if(miao- sMiao>3600){
-                            goodListHtml += '<span class="m_c_a_r_top">'+allTasks[i].category_name+'<i class="just_now">今天</i></span>';
-                            }else if( Month!=sMonth && date!=sDate){
+                        goodListHtml += '<span class="main_content_a_ash a_righ_time">';
+
+                        if( (Month!=sMonth && date!=sDate)|| (Month == sMonth && date!=sDate)){//判断当前月和日与开始的不相等
+    
                             goodListHtml += '<span class="m_c_a_r_top">'+allTasks[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
-                            }
+                        }else if(miao-sMiao>3600){//判断当前秒与开始
+                            goodListHtml += '<span class="m_c_a_r_top">'+allTasks[i].category_name+'<i class="just_now">今天</i></span>';
+                        }else if( miao-sMiao<=3600){
+                            
+                            goodListHtml += '<span class="m_c_a_r_top">'+allTasks[i].category_name+'<i class="just_now">刚刚</i></span>';
+                        }
                         goodListHtml += '<span class="m_c_a_r_ash">';
-                        goodListHtml += '<span class="m_c_a_r_bottomlefts">已完成</span>';
+                        goodListHtml += '<span class="m_c_a_r_bottomlefts d_drew">已完成</span>';
                         goodListHtml += ' </span>';
                         goodListHtml += '</span>';
                         goodListHtml += '<div class="main_content_a">';
@@ -520,11 +530,8 @@ var coTime = '';
 //  倒计时方法---已经开始
 function countdown (totalSecond,index){
     var that=this;
-    // console.log( index,'hg')
-    // console.log( document.getElementsByClassName('main_content_a_right')[index],'hgk')
-    if( document.getElementsByClassName('main_content_a_right')[index]){
-        var d_drew = document.getElementsByClassName('main_content_a_right')[index].getElementsByClassName('d_drew')[0];
-        // console.log(document.getElementsByClassName('main_content_a_right')[index],'jk')
+    if( document.getElementsByClassName('a_righ_time')[index]){
+        var d_drew = document.getElementsByClassName('a_righ_time')[index].getElementsByClassName('d_drew')[0];
         clearInterval(d_drew.interval);   
         d_drew.interval = setInterval(function () {
             // 总秒数
@@ -595,16 +602,18 @@ function countdown (totalSecond,index){
                                 rsHtml += '<img class="main_img" src="../../image/makeEveryDay/money.png">';
                                 rsHtml += '</span>';
                                 rsHtml += '<span class="p_purse">'+(fixationRs[j].bonus/100).toFixed(2)+'</span>';
-                                rsHtml += '<span class="main_content_a_right">';
-                                if( miao- sMiao<=3600){
-                                    rsHtml += '<span class="m_c_a_r_top">'+fixationRs[j].category_name+'<i class="just_now">刚刚</i></span>';
-                                    }else if(miao- sMiao>3600){
-                                        rsHtml += '<span class="m_c_a_r_top">'+fixationRs[j].category_name+'<i class="just_now">今天</i></span>';
-                                    }else if( Month!=sMonth && date!=sDate){
-                                        rsHtml += '<span class="m_c_a_r_top">'+fixationRs[j].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
-                                    }
+                                rsHtml += '<span class="main_content_a_right a_righ_time">';
+                                if( (Month!=sMonth && date!=sDate)|| (Month == sMonth && date!=sDate)){//判断当前月和日与开始的不相等
+            
+                                    rsHtml += '<span class="m_c_a_r_top">'+fixationRs[i].category_name+'<i class="just_now">'+expiryMonth+'</i></span>';
+                                }else if(miao-sMiao>3600){//判断当前秒与开始
+                                    rsHtml += '<span class="m_c_a_r_top">'+fixationRs[i].category_name+'<i class="just_now">今天</i></span>';
+                                }else if( miao-sMiao<=3600){
+                                    
+                                    rsHtml += '<span class="m_c_a_r_top">'+fixationRs[i].category_name+'<i class="just_now">刚刚</i></span>';
+                                }
                                 rsHtml += '<span class="m_c_a_r_bottom">';
-                                rsHtml += '<span class="m_c_a_r_bottomleft">已有'+fixationRs[j].number+'人领取</span>';
+                                rsHtml += '<span class="m_c_a_r_bottomleft d_drew">已有'+fixationRs[j].number+'人领取</span>';
                                 rsHtml += '</span>';
                                 rsHtml += '</span>';
                                 rsHtml += '<a class="main_content_a">';
