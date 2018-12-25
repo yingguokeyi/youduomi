@@ -347,6 +347,7 @@ function placard(){
                     })
                     // 查看出现弹框
                     $(function(){
+                        var rid;
                         $('.close').click(function(){
                             $('#modal_help').hide();
                             $('#modal_apply').hide();
@@ -354,7 +355,7 @@ function placard(){
                         var btn = document.getElementsByClassName('task_apply');
                         for(var j=0; j<btn.length; j++){
                             btn[j].onclick = function(){
-                                var rid = $(this).data('id');//获取id
+                                rid = $(this).data('id');//获取id
                                 $('#modal_apply').show();
                                 $.ajax({
                                     url: domain_name_url + "/task",
@@ -379,7 +380,7 @@ function placard(){
                         }
                        
                         $('#sure').click(function(){
-                            var uri = $(this).data('id');//id
+                            var uri = rid;//id
                             var pastState = $(this).data('state');//获得状态state
                             var pastMoney = $(this).data('bonus');//奖励钱
                             var pastTitle = $(this).data('category_name');//标题
@@ -1063,12 +1064,12 @@ $('#completed').click(function(){
                             $('#modal_help').hide();
                             $('#modal_apply').hide();
                         })
-
+                        var rids= '';
                         var btn = document.getElementsByClassName('task_apply');
                         for(var j=0; j<btn.length; j++){
                             btn[j].onclick =function(){
                                 $('#modal_apply').show();
-                                var rid = $(this).data('id');//获取id
+                                rids = $(this).data('id');//获取id
                                 $.ajax({
                                     url: domain_name_url + "/task",
                                     type: "GET",
@@ -1076,7 +1077,7 @@ $('#completed').click(function(){
                                     data: {
                                         method: 'getTaskFail',
                                         userId: 4623,
-                                        taskId:rid,
+                                        taskId:rids,
                                         url_type:"task"
                                     },
                                     success: function(data) {
@@ -1093,7 +1094,7 @@ $('#completed').click(function(){
                         }
                        
                         $('#sure').click(function(){
-                            var uri = $(this).data('id');//id
+                            var uri = rids;//id
                             var pastState = $(this).data('state');//获得状态state
                             var pastMoney = $(this).data('bonus');//奖励钱
                             var pastTitle = $(this).data('category_name');//标题
